@@ -1,0 +1,111 @@
+-- SQL Day 2 Practice Questions 
+
+--1. Display all columns from the EMPLOYEES table.
+
+SELECT * FROM EMPLOYEES;
+
+--2. Display only the EMPLOYEE_ID, FIRST_NAME, and LAST_NAME columns from the EMPLOYEES table.
+
+SELECT EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM EMPLOYEES;
+
+--3.Display the FIRST_NAME, SALARY, and HIRE_DATE of all employees.
+
+SELECT EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM EMPLOYEES;
+
+----4.Display the EMPLOYEE_ID, JOB_ID, and DEPARTMENT_ID of all employees.
+
+SELECT EMPLOYEE_ID,JOB_ID,DEPARTMENT_ID FROM EMPLOYEES;
+
+--5.Display the DEPARTMENT_ID and DEPARTMENT_NAME from the DEPARTMENTS table.
+
+select DEPARTMENT_ID,DEPARTMENT_NAME from DEPARTMENTS;
+
+--6.Display all employees ordered by SALARY in ascending order.
+
+select * from EMPLOYEES ORDER by salary;
+
+--7.Display all employees ordered by FIRST_NAME in ascending order.
+
+select * from EMPLOYEES ORDER by FIRST_NAME;
+
+--8.Display all employees ordered by HIRE_DATE in descending order.
+
+select * from EMPLOYEES ORDER by HIRE_DATE desc;
+
+--9.Display the FIRST_NAME and SALARY ordered by SALARY in descending order.
+
+select FIRST_NAME, SALARY from EMPLOYEES ORDER by SALARY desc;
+
+--10.Display all employees ordered by DEPARTMENT_ID and then by FIRST_NAME.
+
+SELECT * FROM EMPLOYEES ORDER BY DEPARTMENT_ID, FIRST_NAME;
+
+--11.Display the FIRST_NAME, LAST_NAME, and JOB_ID ordered by JOB_ID and LAST_NAME.
+
+SELECT FIRST_NAME, LAST_NAME, JOB_ID FROM EMPLOYEES ORDER BY JOB_ID, LAST_NAME;
+
+--12.Display all employees ordered by MANAGER_ID with NULL values appearing first.
+
+SELECT * FROM EMPLOYEES ORDER BY MANAGER_ID nulls FIRST;
+
+--13.Display all employees ordered by COMMISSION_PCT with NULL values appearing last.
+
+SELECT * FROM EMPLOYEES ORDER BY COMMISSION_PCT nulls LAST;
+
+--14.Display the EMPLOYEE_ID, FIRST_NAME, and SALARY using the table alias E.
+
+select e.EMPLOYEE_ID, e.FIRST_NAME, e.SALARY from employees e;
+
+--15.Display all columns from the EMPLOYEES table using the table alias EMP.
+
+select emp.* from employees emp;
+
+--16.Display the DEPARTMENT_ID and DEPARTMENT_NAME using the table alias D.
+
+select d.DEPARTMENT_ID, d.DEPARTMENT_NAME from DEPARTMENTS d;
+
+--17.Display the FIRST_NAME as Employee_Name.
+
+select FIRST_NAME as employee_name from EMPLOYEES;
+
+--18.Display the SALARY as Monthly_Salary.
+
+select SALARY as monthly_salry from EMPLOYEES;
+
+--19.Display the HIRE_DATE as Joining_Date.
+
+select HIRE_DATE as joining_date from EMPLOYEES;
+
+--20.Display the FIRST_NAME, SALARY, and SALARY + 1000 as Increased_Salary.
+
+select FIRST_NAME, SALARY, SALARY+1000 as increased_Salary FROM EMPLOYEES;
+
+--21.Display the FIRST_NAME, SALARY, and SALARY - 500 as Reduced_Salary.
+
+select FIRST_NAME, SALARY, SALARY-500 as Reduced_Salary FROM EMPLOYEES;
+
+--22.Display the FIRST_NAME, SALARY, and SALARY * 2 as Double_Salary.
+
+select FIRST_NAME, SALARY, SALARY*2 as Double_Salary FROM EMPLOYEES;
+
+--23.Display the FIRST_NAME, SALARY, and SALARY / 2 as Half_Salary.
+
+select FIRST_NAME, SALARY, SALARY/2 as half_Salary FROM EMPLOYEES;
+
+--24.Display the FIRST_NAME, SALARY, and the Annual Salary (SALARY × 12) as Annual_Salary.
+
+select FIRST_NAME, SALARY, SALARY*12 as Annual_Salary FROM EMPLOYEES;
+
+--25.Display the FIRST_NAME, SALARY, SALARY * 2 as Double_Salary, and SALARY * 3 as Triple_Salary, ordered by SALARY in descending order.
+
+select FIRST_NAME, SALARY, SALARY*2 as Double_Salary, SALARY*3 as Triple_Salary FROM EMPLOYEES ORDER BY SALARY DESC;
+
+--------------------------------------
+
+select e.EMPLOYEE_ID, e.DEPARTMENT_ID, e.JOB_ID from EMPLOYEES e,DEPARTMENTS d,JOBS j;
+
+select * from EMPLOYEES;
+
+select e.EMPLOYEE_ID, d.DEPARTMENT_NAME, j.JOB_ID from EMPLOYEES e,DEPARTMENTS d,JOBS j;
+
+select EMPLOYEE_ID, DEPARTMENT_NAME, JOB_ID from EMPLOYEES,DEPARTMENTS,JOBS;
