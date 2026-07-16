@@ -1,0 +1,121 @@
+--Topics: DISTINCT, Concatenation Operator (||), WHERE Clause, Relational Operators, Logical Operators
+
+--1. Display all unique JOB_IDs from the EMPLOYEES table.
+
+SELECT DISTINCT JOB_ID FROM EMPLOYEES;
+
+--2. Display all unique DEPARTMENT_IDs from the EMPLOYEES table.
+
+SELECT DISTINCT DEPARTMENT_ID FROM EMPLOYEES;
+
+--3. Display all unique MANAGER_IDs from the EMPLOYEES table.
+
+SELECT DISTINCT MANAGER_ID FROM EMPLOYEES;
+
+--4. Display unique combinations of JOB_ID and DEPARTMENT_ID.
+
+SELECT DISTINCT JOB_ID, DEPARTMENT_ID FROM EMPLOYEES;
+
+--5. Display unique combinations of DEPARTMENT_ID and MANAGER_ID.
+
+SELECT DISTINCT MANAGER_ID, DEPARTMENT_ID FROM EMPLOYEES;
+
+--6. Display all unique COUNTRY_IDs from the LOCATIONS table.
+
+SELECT DISTINCT COUNTRY_ID FROM LOCATIONS;
+
+--7. Display the employee's FIRST_NAME followed by '@gmail.com' as EMAIL_ID.
+
+select FIRST_NAME || '@gmail.com' as EMAIL_ID from EMPLOYEES;
+
+--8. Display the employee's FIRST_NAME and LAST_NAME in a single column named FULL_NAME.
+
+select FIRST_NAME || LAST_NAME as FULL_NAME from EMPLOYEES;
+
+--9. Display the employee's FIRST_NAME and JOB_ID as: Steven works as AD_PRES.
+
+select FIRST_NAME || '@gmail.com' as EMAIL_ID from EMPLOYEES;
+
+--10. Display the employee's FIRST_NAME, LAST_NAME, and SALARY as: Steven King earns 24000.
+
+SELECT FIRST_NAME || ' ' || LAST_NAME || ' ' || 'earns' || ' ' || SALARY FROM EMPLOYEES;
+
+--11. Display the employee's FIRST_NAME and HIRE_DATE as: Steven joined on 17-JUN-03.
+
+SELECT FIRST_NAME || ' ' || 'joined on' || ' ' || HIRE_DATE FROM EMPLOYEES;
+
+--12. Display the employee's FIRST_NAME, JOB_ID, and DEPARTMENT_ID in one sentence.
+
+SELECT FIRST_NAME || ' ' || JOB_ID || ' ' || DEPARTMENT_ID FROM EMPLOYEES;
+
+--13. Display employees whose JOB_ID is 'IT_PROG'.
+
+select * from EMPLOYEES where JOB_ID = 'IT_PROG';
+
+--14. Display employees whose DEPARTMENT_ID is 50.
+
+select * from EMPLOYEES where DEPARTMENT_ID = 50;
+
+--15. Display employees whose SALARY is 24000.
+
+select * from EMPLOYEES where SALARY = 24000;
+
+--16. Display employees whose MANAGER_ID is 100.
+
+select * from EMPLOYEES where MANAGER_ID = 100;
+
+--17. Display departments whose LOCATION_ID is 1700.
+
+select * from DEPARTMENTS where LOCATION_ID = 1700;
+
+--18. Display jobs whose JOB_TITLE is 'Programmer'.
+
+SELECT * FROM JOBS where JOB_TITLE = 'programmer';
+
+--19. Display employees whose SALARY is greater than 10000.
+
+select * from EMPLOYEES WHERE SALARY > 10000;
+
+--20. Display employees whose SALARY is less than 5000.
+
+select * from EMPLOYEES WHERE SALARY < 5000;
+
+--21. Display employees whose SALARY is greater than or equal to 8000.
+
+select * from EMPLOYEES WHERE SALARY >= 8000;
+
+--22. Display employees whose SALARY is less than or equal to 7000.
+
+select * from EMPLOYEES WHERE SALARY <= 7000;
+
+--23. Display employees whose JOB_ID is not equal to 'SA_REP'.
+
+select * from EMPLOYEES WHERE JOB_ID != 'SA_REP';
+
+--24. Display employees whose DEPARTMENT_ID is not equal to 50.
+
+SELECT * FROM EMPLOYEES where DEPARTMENT_ID != 50;
+
+--25. Display employees hired after 01-JAN-2005.
+
+SELECT * FROM EMPLOYEES where HIRE_DATE > '01-01-05';
+
+--26. Display employees who work in Department 50 AND whose salary is greater than 5000.
+
+select * from EMPLOYEES WHERE DEPARTMENT_ID = 50 AND SALARY > 5000;
+
+--27. Display employees who belong to Department 50 OR Department 60.
+
+select * from EMPLOYEES WHERE DEPARTMENT_ID = 50 OR DEPARTMENT_ID = 60;
+
+--28. Display employees whose JOB_ID is NOT 'IT_PROG'.
+
+select * from EMPLOYEES WHERE JOB_ID = 'IT_PROG';
+
+--29. Display employees who work in Department 30 AND whose JOB_ID is 'PU_CLERK'.
+
+select * from EMPLOYEES WHERE DEPARTMENT_ID = 30 AND JOB_ID = 'PU_CLERK';
+
+--30. Display employees who work in Department 50 AND (JOB_ID is 'ST_CLERK' OR 'ST_MAN').
+
+select * from EMPLOYEES WHERE DEPARTMENT_ID = 50 AND (JOB_ID = 'ST_CLERK' or JOB_ID = 'ST_MAN');
