@@ -1,0 +1,121 @@
+--Practice Questions from Special Operator, Dummy Table and Numeric Functions
+
+--1. Display all employees who work in Department 50 or 60.
+
+select * from EMPLOYEES where DEPARTMENT_ID IN(50,60);
+
+--2. Display employees whose Job ID is IT_PROG, SA_REP, or ST_CLERK.
+
+SELECT *FROM EMPLOYEES WHERE JOB_ID = 'IT_PROG' OR JOB_ID = 'SA_REP' OR JOB_ID = 'ST_CLERK';
+
+--3. Display employees whose Manager ID is 100, 101, or 102.
+
+select * FROM EMPLOYEES WHERE MANAGER_ID IN (100,101,102);
+
+--4. Display employees who belong to Departments 20, 40, and 90.
+
+select * FROM EMPLOYEES WHERE DEPARTMENT_ID IN (20,40,90);
+
+--5. Display department details whose Location ID is 1700, 1800, or 2400.
+
+select * from LOCATIONS WHERE LOCATION_ID IN (1700,1800,2400);
+
+--6. Display employees whose salary is between 5000 and 10000.
+
+SELECT * FROM EMPLOYEES WHERE SALARY BETWEEN 5000 and 10000;
+
+--7. Display employees hired between 01-JAN-2005 and 31-DEC-2007.
+
+select * FROM EMPLOYEES WHERE HIRE_DATE BETWEEN '01-01-05' and '31-12-07';
+
+--8. Display employees whose Employee ID is between 120 and 140.
+
+SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID BETWEEN 120 and 140;
+
+--9. Display jobs whose minimum salary is between 5000 and 10000.
+
+select JOB_TITLE FROM JOBS WHERE MIN_SALARY BETWEEN 5000 and 10000;
+
+--10. Display employees whose commission percentage is between 0.10 and 0.30.
+
+select * from EMPLOYEES where COMMISSION_PCT BETWEEN 0.10 and 0.30;
+
+--11. Display employees whose first name starts with S.
+
+select EMPLOYEE_ID,FIRST_NAME from EMPLOYEES where FIRST_NAME like 'S%';
+
+--12. Display employees whose last name starts with K.
+
+select * from EMPLOYEES where LAST_NAME like 'K%';
+
+--13. Display employees whose first name ends with n.
+
+select * from EMPLOYEES where FIRST_NAME like '%n';
+
+--14. Display employees whose first name contains a.
+
+select * from EMPLOYEES where LAST_NAME like 'A%';
+
+--15. Display employees whose email starts with A.
+
+select * from EMPLOYEES where email like 'A%';
+
+--16. Display employees whose Job ID starts with SA.
+
+SELECT * FROM EMPLOYEES WHERE JOB_ID LIKE 'SA%';
+
+--17. Display employees whose first name has exactly five characters.
+
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME like '_____';
+
+--18. Display employees whose second letter of the first name is a.
+
+SELECT * FROM EMPLOYEES WHERE FIRST_NAME like '_a%';
+
+--19. Display employees whose Commission Percentage is NULL.
+
+select * FROM EMPLOYEES WHERE COMMISSION_PCT IS NULL;
+
+--20. Display employees whose Commission Percentage is NOT NULL.
+
+select * FROM EMPLOYEES WHERE COMMISSION_PCT IS  not NULL;
+
+--21. Display employees whose Manager ID is NULL.
+
+select * FROM EMPLOYEES WHERE MANAGER_ID IS NULL;
+
+--22. Display employees whose Department ID is NOT NULL.
+
+select * FROM EMPLOYEES WHERE DEPARTMENT_ID IS not NULL ;
+
+--23. Display the message 'Welcome to Oracle SQL' using the DUAL table.
+
+SELECT 'Welcome to Oracle SQL' from dual;
+
+--24. Display today's system date using the DUAL table.
+
+SELECT SYSDATE from dual;
+
+--25. Display the result of 100 + 250 using the DUAL table.
+
+SELECT 100 + 250 from dual;
+
+--26. Round 456.789 to 2 decimal places using the ROUND() function.
+
+SELECT ROUND(456.789,2) from dual;
+
+--27. Truncate 456.789 to 2 decimal places using the TRUNC() function.
+
+SELECT TRUNC(456.789,2) from dual;
+
+--28. Find the remainder when 25 is divided by 4 using the MOD() function.
+
+SELECT MOD(25,4) from dual;
+
+--29. Round the SALARY of all employees to the nearest whole number.
+
+select SALARY, ROUND(SALARY) as RoumdedSalary FROM EMPLOYEES;
+
+--30. Display the Employee ID, Salary, and the remainder when Salary is divided by 1000 using the MOD() function.
+
+select EMPLOYEE_ID, SALARY, mod(SALARY,1000) Divided_Salary from EMPLOYEES ;
