@@ -1,0 +1,50 @@
+--DML( Data Manipulation Language)
+
+select * from drinks;
+
+desc drinks;
+
+--Drop Table Columns
+
+alter table drinks drop (exp_date, sale_date);
+
+--Insert
+
+--Insert single Row Value
+
+insert into drinks values (106, 'Nepolian', 'Whiskey', 280, 'PY', sysdate-20);
+
+--Insert Multiple row Value
+
+insert all into drinks values (102, 'OldMonk', 'rum', 210, 'TN', sysdate-10)
+into drinks values (103, 'Kingfisher', 'Beer', 180, 'KA', sysdate-15)
+into drinks values (104, 'RoyalAccord', 'Brandy', 160, 'AP', sysdate-7)
+into drinks values (105, 'Jawan', 'Rum', 250, 'KL', sysdate-15)
+select * from dual;
+
+--COMMIT
+
+COMMIT ;
+
+--DELETE
+
+--Single row delete
+
+delete from drinks where drink_id = 106;
+
+--Delete Table 
+
+delete from cars;
+
+--update
+
+--Update single value
+
+update drinks set DRINK_PRICE=180 where DRINK_ID=104;
+
+--Update multiple value
+
+update drinks set DRINK_PRICE=250, MFG_STATE='KA' WHERE drink_id = 102;
+
+update drinks set MFG_STATE = 'GA' WHERE DRINK_ID = 102;
+
