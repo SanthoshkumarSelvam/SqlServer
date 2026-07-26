@@ -1,0 +1,30 @@
+--TCL( Transaction Control Language )
+
+--Commit, Rollback, Savepoint
+
+--Commit
+
+commit;
+
+--ROLLBACK
+
+ROLLBACK;
+
+--SAVEPOINT
+
+insert all into DRINKS values(107, 'Signature', 'Whiskey', 2500, 'DL', sysdate-60)
+into drinks values (108, 'Mansionhouse', 'Brandy', 220, 'TN', sysdate-50)
+into drinks values (109, 'RedWine', 'Wine', 350, 'JM', sysdate-45)
+select * from dual;
+
+select * from drinks;
+
+savepoint sp1;
+
+DELETE from drinks WHERE DRINK_ID IN (107,108,109);
+
+ROLLBACK to sp1;
+
+COMMIT;
+
+ROLLBACK;
