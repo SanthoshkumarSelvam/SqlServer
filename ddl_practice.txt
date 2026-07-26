@@ -1,0 +1,23 @@
+select * from drinks;
+
+create table bike ( bike_id number(5), bike_name varchar2(10), bike_price number(8), bike_state char(3));
+
+select * from bike;
+
+desc bike;
+
+alter table bike ADD (bike_rto char(2), bike_chass number(5));
+
+alter table bike modify(bike_rto char(5), bike_varient char(5));
+
+alter table bike drop column bike_chass;
+
+alter table bike drop (bike_varient, bike_rto);
+
+alter table bike add bike_rto char(5);
+
+alter table bike add bike_aaa VARCHAR2(10);
+
+alter table bike RENAME COLUMN bike_aaa TO bike_bbb;
+
+TRUNCATE table bike;
