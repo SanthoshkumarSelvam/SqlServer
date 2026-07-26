@@ -1,0 +1,41 @@
+--DDL ( Data Definition Language)
+
+select * from  drinks;
+
+--Table Creation
+
+create table drinks ( drink_id number(3), brand_name varchar2(15),drink_variety char(8),drink_price number(8), mfg_state char(3), mfg_date date );
+
+--Add Column
+
+ALTER table drinks add (sell_date date);
+
+--modify column
+
+alter table drinks MODIFY(sell_date char(5), pkpd_date varchar2(10));
+
+desc drinks;
+
+--Drop column
+
+--Single column
+
+alter table drinks drop COLUMN sell_date;
+
+--Multiple column
+
+alter table drinks drop (sell_date, pkpd_date);
+
+--Rename Column(Does not rename a multiple columns)
+
+alter table drinks rename column sell_date to sale_date;
+
+--TRUNCATE
+
+select * from CARS;
+
+TRUNCATE TABLE cars;
+
+--Drop Table
+
+drop TABLE cars;
