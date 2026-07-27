@@ -1,0 +1,125 @@
+Reviosn-2
+
+--Combined Oracle SQL Practice Questions (30)
+
+--1.	Display all customer details from the FHB_CUSTOMER table. 
+
+select * from FHB_CUSTOMER;
+
+--2.	Display only FIRST_NAME, LAST_NAME, and EMAIL of all customers. 
+
+select FIRST_NAME, LAST_NAME, EMAIL from FHB_CUSTOMER;
+
+--3.	Display all active customers (IS_ACTIVE = 1). 
+
+select * from FHB_customer where IS_ACTIVE =1;
+
+--4.	Display customers whose FICO_SCORE is greater than 700. 
+
+select * from FHB_CUSTOMER where FICO_SCORE > 700;
+
+--5.	Display customers whose FICO_SCORE is between 650 and 800. 
+
+select * from FHB_CUSTOMER where FICO_SCORE between 650 and 800;
+
+--6.	Display customers whose last name is either Williams or Brown using the IN operator. 
+
+select * from FHB_CUSTOMER where LAST_NAME in ('Williams', 'Brown' );
+
+--7.	Display customers whose first name starts with C. 
+
+select * from FHB_CUSTOMER where FIRST_NAME like 'C%';
+
+--8.	Display customers whose email contains gmail or email using the LIKE operator. 
+
+select * from FHB_CUSTOMER where EMAIL like '%gmail%' or email like '%email%';
+
+--9.	Display all accounts whose current balance is greater than 20,000 and account status is ACTIVE. 
+
+select * from FHB_ACCOUNT where current_balance > 20000 and account_status = 'ACTIVE'; 
+
+--10.	Display all accounts whose account type is CHECKING or SAVINGS. 
+
+select * from FHB_ACCOUNT where ACCOUNT_TYPE in ('CHECKING','SAVINGS');
+
+--11.	Display all accounts that are NOT active. 
+
+select * from FHB_ACCOUNT where NOT ACCOUNT_STATUS = 'ACTIVE';
+
+--12.	Display account details ordered by CURRENT_BALANCE in descending order. 
+
+select * from FHB_ACCOUNT ORDER BY CURRENT_BALANCE DESC;
+
+--13.	Display distinct account types available in the bank. 
+
+select DISTINCT account_type from FHB_ACCOUNT;
+
+--14.	Display all loan records whose outstanding balance is less than the original amount. 
+
+select * from FHB_LOAN where OUTSTANDING_BALANCE < ORIGINAL_AMOUNT ;
+
+--15.	Display all transactions whose status is FAILED or PENDING. 
+
+select * from fhb_transaction where STATUS ='FAILED' or STATUS = 'PENDING';
+
+--16.	Display all transactions whose debit amount is greater than 100 but less than 500. 
+
+select * from fhb_transaction where DEBIT_AMOUNT > 100 and DEBIT_AMOUNT < 500;
+
+--17.	Display all cards whose payment due date is NULL. 
+
+select * from FHB_CARD where PAYMENT_DUE_DATE is null;
+
+--18.	Display all statements whose generated date is NULL. 
+
+select * from FHB_STATEMENT where GENERATED_DATE is null;
+
+--19.	Display customer names in uppercase using UPPER(). 
+
+select FIRST_NAME, UPPER(first_name||'-'||LAST_NAME) as Upper_case from FHB_CUSTOMER ;
+
+--20.	Display customer names in lowercase using LOWER(). 
+
+select FIRST_NAME, lower(first_name||'-'||LAST_NAME) as Lower_case from FHB_CUSTOMER ;
+
+--21.	Display the length of each customer's first name using LENGTH().
+
+select FIRST_NAME, length(first_name||'-'||LAST_NAME) as Name_Length from FHB_CUSTOMER ;
+
+--22.	Display the first four characters of each customer code using SUBSTR(). 
+
+select FIRST_NAME, SUBSTR(CUSTOMER_CODE,1,4) from FHB_CUSTOMER ;
+
+--23.	Find the position of '@' in every customer email using INSTR().
+
+select * from FHB_CUSTOMER;
+
+select email, instr(email,'@') from FHB_CUSTOMER;
+
+--24.	Display account names after removing leading and trailing spaces using TRIM(). 
+
+select first_name, last_name, trim(first_name) as Trimed_name from fhb_customer;
+
+--25.	Display the account open date in the format DD-MON-YYYY using TO_CHAR(). 
+
+select OPEN_DATE, TO_CHAR(SYSDATE, 'DD-MM-YYYY')  from FHB_ACCOUNT;
+
+--26.	Display today's system date using the DUAL table. 
+
+select sysdate from dual;
+
+--27.	Display today's date and current time using the DUAL table and TO_CHAR(). 
+
+SELECT TO_CHAR(sysdate, 'DD-MM-YY HH24:MI:SS') FROM dual;
+
+--28.	Display customer first name as Customer Name and last name as Surname using column aliases. 
+
+select first_name as Customer_name, last_name Sur_name from FHB_CUSTOMER;
+
+--29.	Display account details using the table alias A and customer details using the table alias C (without using joins).
+
+select * from FHB_ACCOUNT A, FHB_CUSTOMER C;
+
+--30.	Display all accounts and replace NULL maturity dates with 'Not Applicable' using NVL(). 
+
+select NVL(MATURITY_DATE,0) from FHB_ACCOUNT;
