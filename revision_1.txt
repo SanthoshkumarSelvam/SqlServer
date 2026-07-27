@@ -1,0 +1,122 @@
+--Revision-1
+
+--1.	Display employee first name, last name and salary for all employees.
+
+select FIRST_NAME, LAST_NAME, SALARY from EMPLOYEES;
+
+--2.	Display employees whose salary is greater than 8000.
+
+select * from EMPLOYEES WHERE SALARY > 8000;
+
+--3.	Display employees whose first name starts with letter ‘S’.
+
+select * from employees where FIRST_NAME like 'S%';
+
+--4.	Display employees who are all working in departments 10,20,100.
+
+select * from employees where DEPARTMENT_ID in(10,20,100);
+
+--5.	Display employees whose salary range is from 5000 to 10000.
+
+select * from employees where SALARY BETWEEN 5000 and 10000;
+
+--6.	Display employees who doesn’t have commission.
+
+select * from employees where COMMISSION_PCT is NULL;
+
+--7.	Display employees whose last name ends with letter ‘e’.
+
+select * from employees where LAST_NAME like '%e';
+
+--8.	Display employees who have a manager.
+
+select * from employees where JOB_ID = 'FI_MGR';
+
+--9.	Display employees first name and last name in both upper case and lower case.
+
+select first_name,upper(FIRST_NAME||last_name), LAST_NAME, lower(FIRST_NAME||last_name) from EMPLOYEES;
+
+--10.	Display the first 4 characters of each employee name.
+
+select FIRST_NAME, SUBSTR(FIRST_NAME,1,4) as First_four from employees;
+
+--11.	Display the length of each employee’s first name.
+
+select FIRST_NAME, LENGTH(FIRST_NAME) as Length_name from employees;
+
+--12.	Display employees whose name contains letter ‘i’ as second letter.
+
+select FIRST_NAME, LAST_NAME from employees where FIRST_NAME like '%i%';
+
+--13.	Display employees whose name length is greater than 6 characters.
+
+select first_name, LAST_NAME from EMPLOYEES where length(FIRST_NAME)>6;
+
+--14.	Display employees whose job id contains ‘MAN’.
+
+SELECT FIRST_NAME, JOB_ID FROM employees WHERE JOB_ID like '%MAN%';
+
+--15.	Remove the decimal value for the given number 456.9867
+
+select TRUNC(456.9867) from dual;
+
+--16.	Display employees whose salary is an even number.
+
+select first_name, last_name, salary from EMPLOYEES where mod(salary,2)=0 ;
+
+--17.	Display the first name and last name of employees as a single column, name it as full name and also find the string size of full name.
+
+select FIRST_NAME||'_'||LAST_NAME as Full_name from employees WHERE length(first_name||'_'||last_nam);
+
+--18.	Display unique department ids from employees table.
+
+select DISTINCT department_id from employees;
+
+--19.	Increase each employees salary by 2000 and display the result as increased salary.
+
+select SALARY, SALARY+2000 as incremented_salary from employees;
+
+--20.	Display the mirror image for the given string ‘Database’.
+
+SELECT FIRST_NAME, reverse(FIRST_NAME) as Mirror_name FROM employees;
+
+--21.	Right align the values of first name.
+
+
+--22.	List employees with highest paid to lowest paid.
+
+select * from employees order by salary desc;
+
+--23.	Find the positon of second ‘i’ from the text ‘Live and Let Live’.
+
+select INSTR('Live and Let Live','i', 2, 2) from dual;
+
+--24.	Display employees whose first name starts with letter ‘S’ and their salary range is from 3000 to 20000.
+
+select FIRST_NAME, SALARY from employees where first_name like 'S%' and salary between 3000 and 20000;
+
+--25.	Display only odd number of rows from the employee table.
+
+
+
+--26.	Remove the decimal point and round the given value 456.987
+
+select ROUND(456.987) from dual;
+
+--27.	 Find the employees with exactly 7 characters from full name.
+
+select * from employees where length(FIRST_NAME)=7;
+
+--28.	Find employees who are all hired in the year 2005.
+
+select *from employees where TO_CHAR(HIRE_DATE, 'YY')='05';
+
+SELECT * FROM EMPLOYEES WHERE TO_CHAR(HIRE_DATE, 'YYYY') = '2005';
+
+--29.	Find employees hired in the ‘March’ month.
+
+select *from employees where TO_CHAR(HIRE_DATE, 'MM')='03';
+
+--30.	Display employees whose salary range is not from 5000 to 10000.
+
+select *from employees where salary not between 5000 and 10000;
