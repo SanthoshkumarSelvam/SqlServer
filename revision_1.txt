@@ -120,3 +120,5 @@ select *from employees where TO_CHAR(HIRE_DATE, 'MM')='03';
 --30.	Display employees whose salary range is not from 5000 to 10000.
 
 select *from employees where salary not between 5000 and 10000;
+
+--completed
