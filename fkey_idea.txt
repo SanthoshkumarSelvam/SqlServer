@@ -1,0 +1,37 @@
+1. COMPANY (Parent Table)
+
+Product_ID	Product_Name	Product_Variant	Product_Price	Product_MfgDate	Product_Code
+
+1	Honda City	Diesel	900000	04-07-2026	CL101
+2	Shine	Petrol	95000	05-08-2026	BK101
+3	Civic	Diesel	1000000	10-03-2026	CL102
+4	Activa	Petrol	80000	05-07-2026	BK102
+5	Amaze	Diesel	1100000	20-06-2026	CL103
+6	CB200X	Petrol	120000	24-04-2026	BK103
+
+2. CAR (Child Table)
+
+Car_ID	Car_Name	Car_Variant	Car_Price	Car_MfgDate	Product_Code (FK)
+
+1	Honda City	Diesel	900000	04-07-2026	CL101
+2	Civic	Diesel	1000000	10-03-2026	CL102
+3	Amaze	Diesel	1100000	20-06-2026	CL103
+
+3. BIKE (Child Table)
+
+Bike_ID	Bike_Name	Bike_Variant	Bike_Price	Bike_MfgDate	Product_Code (FK)
+
+1	Shine	Petrol	95000	05-08-2026	BK101
+2	Activa	Petrol	80000	05-07-2026	BK102
+3	CB200X	Petrol	120000	24-04-2026	BK103
+
+4. SALES (Child Table)
+
+Sales_ID	Customer_Name	Customer_Address	Sales_Date	Sales_Type	Product_Code (FK)
+
+1	Tony	VLS	10-07-2026	Online	CL101
+2	Christopher	VLC	12-07-2026	Showroom	BK101
+3	Daniel	Pattur	15-07-2026	Online	CL102
+4	John	VLS	18-07-2026	Showroom	BK102
+5	George	Salem	20-07-2026	Online	CL103
+6	Peter	Chennai	22-07-2026	Showroom	BK103 [D[D3
