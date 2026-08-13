@@ -1,0 +1,449 @@
+--Aggregate Functions
+
+--count, sum, average, min, max
+
+--count 
+
+select * from employees;
+
+select COUNT(*) from EMPLOYEES; -- Star counts null as a value
+
+select count(salary), count(COMMISSION_PCT) from employees;
+
+--sum
+
+select sum(salary) from EMPLOYEES;
+
+--average
+
+select AVG(salary) from employees;
+
+select round(AVG(salary)) from employees;
+
+--min
+
+select min(salary) from EMPLOYEES;
+
+--max
+
+select max(salary) from EMPLOYEES;
+
+--group_by and having
+
+select department_id, COUNT(salary), sum(SALARY) from employees GROUP by department_id;
+
+select DEPARTMENT_ID, round(avg(SALARY)) from employees GROUP BY DEPARTMENT_ID;
+
+select DEPARTMENT_ID, sum(SALARY) from employees GROUP by DEPARTMENT_ID;
+
+select department_id, max(salary) from employees GROUP BY DEPARTMENT_ID;
+
+select department_id, min(salary) from employees GROUP BY DEPARTMENT_ID;
+
+
+--Sample Questions
+
+--Aggregate Functions
+
+--1.	Count the total number of customers available in the FHB_CUSTOMER table. 
+
+select * from fhb_customer;
+
+select count(*) from FHB_CUSTOMER;
+
+select count(customer_id) from FHB_CUSTOMER;
+
+--2.	Count the total number of accounts available in the FHB_ACCOUNT table. 
+
+select * from FHB_ACCOUNT;
+
+select count(ACCOUNT_ID) from FHB_ACCOUNT;
+
+select count(*) from FHB_ACCOUNT;
+
+--3.	Count the total number of transactions available in the FHB_TRANSACTION table.
+
+select * from FHB_TRANSACTION;
+
+select count(*) from FHB_TRANSACTION;
+
+select count(transaction_id) from FHB_TRANSACTION;
+
+--4.	Find the maximum FICO score among all customers. 
+
+select * from FHB_CUSTOMER;
+
+select  max(fico_score) from FHB_CUSTOMER;
+
+--5.	Find the minimum FICO score among all customers. 
+
+select  min(fico_score) from FHB_CUSTOMER;
+
+--6.	Find the average FICO score of all customers.
+
+select  avg(fico_score) from FHB_CUSTOMER;
+
+--7.	Find the total debit amount from all transactions. 
+
+select * from FHB_TRANSACTION;
+
+select  sum(DEBIT_AMOUNT) from FHB_TRANSACTION;
+
+--8.	Find the total credit amount from all transactions. 
+
+select  sum(CREDIT_AMOUNT) from FHB_TRANSACTION;
+
+--9.	Find the highest current balance among all accounts. 
+
+select * from FHB_ACCOUNT;
+
+select MAX(current_balance) from FHB_ACCOUNT;
+
+--10.	Find the average current balance of all accounts.
+
+select avg(current_balance) from FHB_ACCOUNT;
+
+select round(avg(current_balance)) from FHB_ACCOUNT;
+
+
+--11.	Count the number of active customers from the FHB_CUSTOMER table. 
+
+select * from FHB_CUSTOMER;
+
+select IS_ACTIVE,count(is_active) from FHB_CUSTOMER group by IS_ACTIVE;
+
+select IS_ACTIVE,count(is_active) from FHB_CUSTOMER group by IS_ACTIVE HAVING IS_ACTIVE = 1;
+
+--12.	Find the number of inactive customers from the FHB_CUSTOMER table. 
+
+select IS_ACTIVE,count(is_active) from FHB_CUSTOMER group by IS_ACTIVE HAVING IS_ACTIVE = 0;
+
+--13.	Find the total number of active accounts from the FHB_ACCOUNT table. 
+
+select * from FHB_ACCOUNT;
+
+select count(*), count(ACCOUNT_STATUS) from FHB_ACCOUNT group by ACCOUNT_STATUS HAVING ACCOUNT_STATUS = 'ACTIVE';
+
+--14.	Find the total current balance of active accounts. 
+
+select * from FHB_ACCOUNT;
+
+select  ACCOUNT_STATUS, sum(CURRENT_BALANCE) from FHB_ACCOUNT group by ACCOUNT_STATUS HAVING ACCOUNT_STATUS = 'ACTIVE';
+
+select  ACCOUNT_STATUS, sum(CURRENT_BALANCE) from FHB_ACCOUNT group by ACCOUNT_STATUS HAVING ACCOUNT_STATUS = 'ACTIVE' or ACCOUNT_STATUS = 'DORMANT';
+
+select sum(CURRENT_BALANCE) from FHB_ACCOUNT;
+
+--15.	Find the average FICO score of customers whose FICO score is greater than 700.
+
+select * from FHB_CUSTOMER;
+
+select avg(FICO_SCORE) from FHB_CUSTOMER;
+
+select  FIRST_NAME, FICO_SCORE, avg(FICO_SCORE) from FHB_CUSTOMER GROUP by FIRST_NAME, FICO_SCORE;
+
+select  FIRST_NAME, FICO_SCORE, avg(FICO_SCORE) from FHB_CUSTOMER GROUP by FIRST_NAME, FICO_SCORE HAVING FICO_SCORE > 700;
+
+--16.	Find the minimum FICO score of customers whose FICO score is less than 600.
+
+select  FIRST_NAME, FICO_SCORE, min(FICO_SCORE) from FHB_CUSTOMER GROUP by FIRST_NAME, FICO_SCORE HAVING FICO_SCORE < 650;
+
+--17.	Find the total debit amount for transactions where TXN_TYPE is 'WITHDRAWAL'. 
+
+select * from FHB_TRANSACTION;
+
+select sum(DEBIT_AMOUNT) from FHB_TRANSACTION where TXN_TYPE = 'WIRE';
+
+select TXN_TYPE, sum(DEBIT_AMOUNT) from FHB_TRANSACTION group by TXN_TYPE having TXN_TYPE = 'WIRE';
+
+
+--18.	Find the total credit amount for transactions where TXN_TYPE is 'DEPOSIT'.
+
+select TXN_TYPE, sum(CREDIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE having TXN_TYPE = 'ACH';
+
+--19.	Find the maximum current balance among SAVINGS accounts. 
+
+SELECT * FROM FHB_ACCOUNT;
+
+select sum(CURRENT_BALANCE) from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, sum(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, sum(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE having ACCOUNT_TYPE = 'SAVINGS';
+
+--20.	Find the average APY of accounts where ACCOUNT_TYPE is 'SAVINGS'. 
+
+SELECT * FROM FHB_ACCOUNT;
+
+select avg(apy) from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE,avg(apy) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE,avg(apy) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING ACCOUNT_TYPE = 'SAVINGS';
+
+--21.	Display the number of customers based on their active status.
+
+select * from FHB_CUSTOMER;
+
+select COUNT(IS_ACTIVE) from FHB_CUSTOMER;
+
+select IS_ACTIVE, COUNT(*) as total from FHB_CUSTOMER GROUP BY IS_ACTIVE;
+
+select IS_ACTIVE, FIRST_NAME, COUNT(IS_ACTIVE) as total from FHB_CUSTOMER GROUP BY IS_ACTIVE, FIRST_NAME;
+
+select FIRST_NAME, IS_ACTIVE, count(IS_ACTIVE)  from FHB_CUSTOMER GROUP BY FIRST_NAME, IS_ACTIVE;
+
+--22.	Display the number of accounts available for each ACCOUNT_TYPE. 
+
+SELECT * FROM FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, COUNT(ACCOUNT_TYPE) as total_acc_type from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+--23.	Find the total current balance for each ACCOUNT_TYPE. 
+
+SELECT * FROM FHB_ACCOUNT;
+
+select ACCOUNT_TYPE,sum(CURRENT_BALANCE) from FHB_ACCOUNT GROUP by ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE,sum(CURRENT_BALANCE) from FHB_ACCOUNT GROUP by ACCOUNT_TYPE HAVING ACCOUNT_TYPE = 'SAVINGS';
+
+
+--24.	Find the average current balance for each ACCOUNT_TYPE. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, avg(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, avg(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING ACCOUNT_TYPE = 'MMA';
+
+--25.	Find the maximum current balance for each ACCOUNT_TYPE. 
+
+select * from FHB_ACCOUNT;
+
+select max(current_balance) from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, max(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, max(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING ACCOUNT_TYPE = 'CHECKING';
+
+--26.	Display the number of accounts based on ACCOUNT_STATUS. 
+
+select * from FHB_ACCOUNT;
+
+select COUNT(ACCOUNT_STATUS) from FHB_ACCOUNT;
+
+select ACCOUNT_STATUS, COUNT(ACCOUNT_STATUS) from FHB_ACCOUNT GROUP BY ACCOUNT_STATUS;
+
+--27.	Display the total number of transactions for each TXN_TYPE. 
+
+select * from FHB_TRANSACTION;
+
+select TXN_TYPE, COUNT(TXN_TYPE) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+--28.	Find the total debit amount for each TXN_TYPE. 
+
+select * from FHB_TRANSACTION;
+
+select sum(DEBIT_AMOUNT) from FHB_TRANSACTION;
+
+select TXN_TYPE, sum(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+select TXN_TYPE, sum(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING TXN_TYPE = 'CARD';
+
+--29.	Find the total credit amount for each TXN_TYPE. 
+
+select * from FHB_TRANSACTION;
+
+select sum(CREDIT_AMOUNT) from FHB_TRANSACTION;
+
+select TXN_TYPE, sum(CREDIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+select TXN_TYPE, sum(CREDIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING TXN_TYPE = 'ACH';
+
+--31.	Find the average transaction amount for each TXN_TYPE. 
+
+select * from FHB_TRANSACTION;
+
+select avg(RUNNING_BALANCE) from FHB_TRANSACTION;
+
+select TXN_TYPE, avg(RUNNING_BALANCE) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+select TXN_TYPE, avg(RUNNING_BALANCE) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING TXN_TYPE = 'ACH';
+
+--32.	Display account types that have more than 5 accounts. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, COUNT(ACCOUNT_TYPE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, COUNT(ACCOUNT_TYPE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING COUNT(ACCOUNT_TYPE) > 5;
+
+--33.	Display account types where the total current balance is greater than 1,000,000. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, sum(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, sum(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING sum(CURRENT_BALANCE) > 100000;
+
+--34.	Display account types where the average APY is greater than 3. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, avg(apy) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, avg(apy) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING avg(apy) > 3;
+
+--35.	Display transaction types where the total debit amount is greater than 50,000. 
+
+SELECT * FROM FHB_TRANSACTION;
+
+select TXN_TYPE, sum(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+select TXN_TYPE, SUM(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING sum(DEBIT_AMOUNT) > 1000;
+
+select TXN_TYPE, SUM(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING DEBIT_AMOUNT > 100;
+
+--36.	Display transaction types where the total credit amount is greater than 50,000. 
+
+select * from FHB_TRANSACTION;
+
+select TXN_TYPE, sum(CREDIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+select TXN_TYPE, sum(CREDIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING sum(CREDIT_AMOUNT) > 1000;
+
+--37.	Display account statuses having more than 10 accounts. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_NAME, COUNT(ACCOUNT_NAME) from FHB_ACCOUNT GROUP by ACCOUNT_NAME HAVING COUNT(ACCOUNT_NAME) > 3;
+
+--38.	Display transaction types having more than 100 transactions. 
+
+select * from FHB_TRANSACTION;
+
+SELECT TXN_TYPE, COUNT(TXN_TYPE) FROM FHB_TRANSACTION GROUP BY TXN_TYPE HAVING COUNT(TXN_TYPE) > 5;
+
+--39.	Display customer active statuses where the customer count is greater than 50. 
+
+select * from FHB_CUSTOMER;
+
+select IS_ACTIVE, COUNT(*) from FHB_CUSTOMER GROUP BY IS_ACTIVE HAVING COUNT(IS_ACTIVE) > 5;
+
+--39.	Display account types where active accounts are more than 5. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, COUNT(IS_ACTIVE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING COUNT(IS_ACTIVE) > 5;
+
+--40.	Display SAVINGS accounts where the total current balance is greater than 500,000. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, COUNT(ACCOUNT_TYPE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE,CURRENT_BALANCE, COUNT(*) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE,CURRENT_BALANCE HAVING ACCOUNT_TYPE = 'SAVINGS' and sum(CURRENT_BALANCE) > 25000;
+
+select ACCOUNT_TYPE, COUNT(*) from FHB_ACCOUNT WHERE ACCOUNT_TYPE = 'SAVINGS' GROUP BY ACCOUNT_TYPE HAVING sum(CURRENT_BALANCE) > 25000;
+
+select ACCOUNT_TYPE, CURRENT_BALANCE from FHB_ACCOUNT WHERE ACCOUNT_TYPE = 'SAVINGS' and CURRENT_BALANCE > 25000;
+
+--41.	Display transaction types where transactions after 01-JAN-2026 have a total credit amount greater than 100,000.
+
+select * from FHB_TRANSACTION;
+
+select TXN_TYPE, SUM(CREDIT_AMOUNT) from FHB_TRANSACTION where to_char(txn_date, 'DD-MON-YY') > '01-JAN-2026' GROUP BY TXN_TYPE HAVING SUM(CREDIT_AMOUNT) > 1000;
+
+--42.	Display transaction types where the total debit amount is greater than 50,000 and transaction status is 'SUCCESS'. 
+
+--method - 1
+
+select * from FHB_TRANSACTION;
+
+select TXN_TYPE, SUM(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY TXN_TYPE;
+
+select TXN_TYPE, SUM(DEBIT_AMOUNT) from FHB_TRANSACTION where STATUS = 'SUCCESS' GROUP BY TXN_TYPE HAVING sum(DEBIT_AMOUNT) > 1000;
+
+--method - 2
+
+select STATUS, COUNT(STATUS) from FHB_TRANSACTION GROUP BY STATUS;
+
+select STATUS, COUNT(STATUS), sum(DEBIT_AMOUNT) from FHB_TRANSACTION GROUP BY STATUS HAVING STATUS = 'SUCCESS' and sum(DEBIT_AMOUNT) > 1000;
+
+--43.	Display account types where the average current balance is greater than 25,000 and account status is 'ACTIVE'. 
+
+select * from FHB_ACCOUNT;
+
+select AVG(CURRENT_BALANCE) from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, avg(current_balance) from fhb_account where ACCOUNT_STATUS ='ACTIVE' GROUP BY ACCOUNT_TYPE HAVING avg(CURRENT_BALANCE) > 25000;
+
+--44.	Display customers grouped by FICO score range where the average FICO score is greater than 700. 
+    
+SELECT * FROM FHB_CUSTOMER;
+    
+select avg(FICO_SCORE) from FHB_CUSTOMER;
+    
+SELECT CUSTOMER_ID, FIRST_NAME, avg(FICO_SCORE) FROM FHB_CUSTOMER GROUP BY CUSTOMER_ID, FIRST_NAME HAVING AVG(FICO_SCORE) > 700;
+
+select CUSTOMER_ID,avg(FICO_SCORE) from FHB_CUSTOMER Group by CUSTOMER_ID Having avg(FICO_SCORE)>700;
+
+--45.	Display transaction types where the average transaction amount is greater than 10,000. 
+
+select * from FHB_TRANSACTION;
+
+select avg(RUNNING_BALANCE) from FHB_TRANSACTION;
+
+select TXN_TYPE, avg(RUNNING_BALANCE) from FHB_TRANSACTION GROUP BY TXN_TYPE HAVING AVG(running_balance)>10000;
+
+--46.	Display account types where the maximum current balance is greater than 100,000. 
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, MAX(CURRENT_BALANCE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING MAX(current_balance)>10000;
+
+--47.	Display account statuses where the total number of accounts is greater than 20.
+
+select * from FHB_ACCOUNT;
+
+select ACCOUNT_TYPE, ACCOUNT_STATUS, COUNT(ACCOUNT_TYPE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE, ACCOUNT_STATUS;
+
+select ACCOUNT_TYPE, ACCOUNT_STATUS, COUNT(ACCOUNT_TYPE) from FHB_ACCOUNT GROUP BY ACCOUNT_TYPE, ACCOUNT_STATUS HAVING COUNT(ACCOUNT_TYPE)>2;
+
+SELECT ACCOUNT_STATUS, COUNT(*) AS TOTAL_ACCOUNTS
+FROM FHB_ACCOUNT
+GROUP BY ACCOUNT_STATUS
+HAVING COUNT(*) > 2;
+
+--48.	Display transaction types where the total transaction amount (DEBIT_AMOUNT + CREDIT_AMOUNT) is greater than 200,000. 
+
+select * from FHB_TRANSACTION;
+
+select TXN_TYPE, sum(DEBIT_AMOUNT+CREDIT_AMOUNT) as total_amount from FHB_TRANSACTION GROUP BY TXN_TYPE having SUM(DEBIT_AMOUNT+CREDIT_AMOUNT) > 200;
+
+select TXN_TYPE, CREDIT_AMOUNT, DEBIT_AMOUNT, CREDIT_AMOUNT+DEBIT_AMOUNT as total_amount from FHB_TRANSACTION; 
+
+select TXN_TYPE, CREDIT_AMOUNT, DEBIT_AMOUNT, CREDIT_AMOUNT+DEBIT_AMOUNT as total_amount from FHB_TRANSACTION where CREDIT_AMOUNT+DEBIT_AMOUNT > 200;
+
+--49.	Display active customers whose average FICO score is greater than 750. 
+
+select * from FHB_CUSTOMER;
+
+select * from FHB_ACCOUNT;
+
+select c.customer_id, c.FIRST_NAME, AVG(c.FICO_SCORE) from FHB_CUSTOMER c, FHB_ACCOUNT a GROUP BY c.CUSTOMER_ID, c.FIRST_NAME;
+
+select c.customer_id, c.FIRST_NAME, AVG(c.FICO_SCORE) from FHB_CUSTOMER c, FHB_ACCOUNT a GROUP BY c.CUSTOMER_ID, c.FIRST_NAME HAVING AVG(c.FICO_SCORE) > 700; 
+
+--50.	Display account types where active accounts have an average balance greater than 50,000.
+
+SELECT * FROM FHB_ACCOUNT;
+
+SELECT ACCOUNT_TYPE, COUNT(*), CURRENT_BALANCE FROM FHB_ACCOUNT where ACCOUNT_STATUS = 'ACTIVE' GROUP BY ACCOUNT_TYPE, CURRENT_BALANCE HAVING AVG(CURRENT_BALANCE)> 20000;
+
+SELECT ACCOUNT_TYPE,
+       AVG(CURRENT_BALANCE) AS AVG_BALANCE
+FROM FHB_ACCOUNT
+WHERE ACCOUNT_STATUS = 'ACTIVE'
+GROUP BY ACCOUNT_TYPE
+HAVING AVG(CURRENT_BALANCE) > 25000;
