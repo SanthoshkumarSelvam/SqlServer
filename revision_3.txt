@@ -1,0 +1,392 @@
+--Practical Revision Upto Aggregate Functions
+
+--Table 1 - SBI_CUSTOMER
+
+Create table SBI_CUSTOMER(
+customer_id number(5) constraint cust_id_pk PRIMARY KEY,
+customer_name VARCHAR2(20) CONSTRAINT cust_name_nn NOT NULL,
+phone number(10) CONSTRAINT cust_num_uni UNIQUE,
+email VARCHAR2(20) constraint cust_mail_uni UNIQUE,
+city VARCHAR2(15) CONSTRAINT cust_city_nn not null);
+
+select * from SBI_CUSTOMER;
+
+--
+--SBI_Account Table: constraint prod_code_fk foreign key(product_code) references product(product_code)
+
+create table SBI_ACCOUNT(account_id number constraint acc_id_pk PRIMARY KEY,
+customer_id number(10), constraint cust_id_fk foreign key (customer_id) REFERENCES SBI_CUSTOMER(customer_id),
+account_type VARCHAR2(10) CONSTRAINT acc_type_ck CHECK(account_type in ('SAVINGS', 'CURRENT')),
+balance number(10) constraint bal_ck CHECK (balance>= 0),
+open_date date constraint op_dt_nn NOT NULL);
+
+--SBI_Transaction Table:
+
+create table SBI_TRANSACTION (txn_id number constraint txn_id_pk PRIMARY KEY,
+account_id number(10), constraint acc_id_fk FOREIGN KEY(account_id) references sbi_Account(account_id),
+txn_type varchar2(10) CONSTRAINT txn_type_ck CHECK(txn_type in('DEBIT', 'CREDIT')),
+amount number constraint am_ck CHECK (amount > 0),
+txn_date date constraint txn_dyt_nn NOT NULL);
+--
+--SECTION B – INSERT DATA (5 rows each)
+--
+--SBI_Customer:
+
+select * from SBI_CUSTOMER;
+
+insert into SBI_CUSTOMER values(1, 'Arun', '9876543210', 'arun@gmail.com', 'Chennai');
+insert into SBI_CUSTOMER values(2, 'Divya', '9123456780', 'divya@gmail.com', 'Madurai');
+insert into SBI_CUSTOMER values(3, 'Karthik', '9000000001', 'karthik@gmail.com', 'Salem');
+insert into SBI_CUSTOMER values(4, 'Meena', '9000000002', 'meena@gmail.com', 'Chennai');
+insert into SBI_CUSTOMER values(5, 'Ravi', '9000000003', 'ravi@gmail.com', 'Coimbatore');
+
+--SBI_Account:
+
+select * from SBI_account;
+
+insert into SBI_ACCOUNT values(101, 1, 'SAVINGS', 25000, to_date('2024-01-10', 'YYYY-MM-DD'));
+insert into SBI_ACCOUNT values(102, 2, 'CURRENT', 50000, to_date('2024-02-15','YYYY-MM-DD'));
+insert into SBI_ACCOUNT values(103, 3, 'SAVINGS', 15000, to_date('2024-03-01', 'YYYY-MM-DD'));
+insert into SBI_ACCOUNT values(104, 4, 'CURRENT', 70000, to_date('2024-01-25', 'YYYY-MM-DD'));
+insert into SBI_ACCOUNT values(105, 5, 'SAVINGS', 30000, to_date('2024-02-20', 'YYYY-MM-DD'));
+--
+--Bank_Transaction:
+
+select * from SBI_TRANSACTION;
+
+insert into SBI_transaction values(1001, 101, 'DEBIT', 2000, to_date('2024-03-01','YYYY-MM-DD'));
+insert into SBI_transaction values(1002, 101, 'CREDIT', 5000, to_date('2024-03-05','YYYY-MM-DD'));
+insert into SBI_transaction values(1003, 102, 'DEBIT', 10000, to_date('2024-03-07','YYYY-MM-DD'));
+insert into SBI_transaction values(1004, 103, 'CREDIT', 3000, to_date('2024-03-10','YYYY-MM-DD'));
+insert into SBI_transaction values(1005, 104, 'DEBIT', 7000, to_date('2024-03-12','YYYY-MM-DD'));
+--
+--1. Find the total balance of all accounts.
+
+select *from SBI_ACCOUNT;
+
+select balance from SBI_ACCOUNT;
+
+select sum(balance) from SBI_ACCOUNT;
+
+--2. Find the average balance of all accounts.
+
+select avg(balance) from SBI_ACCOUNT;
+
+--3. Find the maximum transaction amount.
+
+select * from SBI_TRANSACTION;
+
+select max(amount) from SBI_TRANSACTION;
+
+--4. Count the total number of customers.
+
+select * from SBI_CUSTOMER;
+
+select count(customer_name) from SBI_CUSTOMER;
+
+--5. Find the total balance for each account type.
+
+select * from SBI_ACCOUNT;
+
+select ACCOUNT_TYPE, COUNT(*) from SBI_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+--6. Display each account type with its average balance.
+
+select ACCOUNT_TYPE, round(avg(BALANCE)) from SBI_ACCOUNT GROUP BY ACCOUNT_TYPE;
+
+--7. Find the minimum balance among all accounts.
+
+select min(balance) from SBI_ACCOUNT;
+
+--8. Find the total transaction amount for each account.
+
+select * from SBI_TRANSACTION;
+
+select txn_TYPE, sum(amount) from SBI_TRANSACTION GROUP BY TXN_TYPE;
+
+--9. Find account types where the total balance is greater than 40,000.
+
+select * from SBI_ACCOUNT;
+
+select ACCOUNT_TYPE, sum(BALANCE) from SBI_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING sum(BALANCE) > 40000;
+
+--10. Find the number of customers in each city.
+
+select * from SBI_CUSTOMER;
+
+select city, count(city)from sbi_customer GROUP BY city;
+
+--11. Find account types having an average balance greater than 20,000.
+
+select * from SBI_ACCOUNT;
+
+select ACCOUNT_TYPE, avg(BALANCE) from SBI_ACCOUNT GROUP BY ACCOUNT_TYPE HAVING avg(BALANCE) > 20000;
+
+--12. Find the total transaction amount for each transaction type.
+
+select * from SBI_TRANSACTION;
+
+select txn_TYPE, avg(amount) from SBI_TRANSACTION GROUP BY txn_TYPE;
+
+--13. Find the number of accounts for each account type.
+
+select * from SBI_ACCOUNT;
+
+select ACCOUNT_TYPE, COUNT(*) from SBI_ACCOUNT GROUP by ACCOUNT_TYPE;
+
+--14. Find the maximum balance available in each account type.
+
+select ACCOUNT_TYPE, max(BALANCE) from SBI_ACCOUNT GROUP by ACCOUNT_TYPE;
+
+--15. Find the minimum balance available in each account type.
+
+select ACCOUNT_TYPE, min(BALANCE) from SBI_ACCOUNT GROUP by ACCOUNT_TYPE;
+
+--16. Find the average transaction amount for each transaction type.
+
+select ACCOUNT_TYPE, avg(BALANCE) from SBI_ACCOUNT GROUP by ACCOUNT_TYPE;
+
+--17. Find cities having more than one customer.
+
+select * from SBI_CUSTOMER;
+
+select city, COUNT(city) from SBI_CUSTOMER GROUP BY city HAVING COUNT(city) > 1;
+
+--18. Find account types whose total balance is greater than 50,000.
+
+select * from SBI_ACCOUNT;
+
+select ACCOUNT_id, sum(BALANCE) from SBI_ACCOUNT GROUP BY ACCOUNT_id HAVING SUM(BALANCE)>50000;
+
+--19. Find cities having exactly one customer.
+
+select city, COUNT(city) from SBI_CUSTOMER GROUP BY city HAVING COUNT(city) = 1;
+
+--20. Find transaction types whose average transaction amount is greater than 4,000.
+
+select * from SBI_TRANSACTION;
+
+select TXN_ID, avg(AMOUNT) from SBI_TRANSACTION GROUP BY TXN_ID HAVING AVG(amount) > 4000;
+
+--21. Find account types having more than one account.
+
+select * from SBI_ACCOUNT;
+
+select ACCOUNT_TYPE, count(*) from SBI_ACCOUNT GROUP by ACCOUNT_TYPE;
+
+select ACCOUNT_TYPE, count(*) from SBI_ACCOUNT GROUP by ACCOUNT_TYPE HAVING COUNT(account_type)>1;
+
+--22. Create a table OLD_CUSTOMERS with the same structure as the CUSTOMER table.
+--23. Insert any three rows into the OLD_CUSTOMERS table.
+--24. Display customer names from both tables using:
+--•	UNION 
+--•	UNION ALL 
+--25. Display common and unmatched customer names.
+
+
+
+
+
+--Table Name: MOb_Product
+--
+--Column names:
+
+create table mob_product( product_id number,
+product_name varchar2(15),
+brand varchar2(10),
+price number,
+quantity number,
+launch_date date);
+
+--
+--Values to insert
+
+select * from MOB_PRODUCT;
+
+insert into MOB_PRODUCT values(1,'iPhone 14','Apple',80000,50,'01-OCT-23');
+
+insert into MOB_PRODUCT values(2,'Galaxy S23','Samsung',75000,40,'15-SEP-23');
+
+insert into MOB_PRODUCT values(3,'Bravia TV','Sony',120000,20,'01-MAY-23');
+
+insert into MOB_PRODUCT values(4,'Inspiron 15','Dell',65000,35,'20-JUL-23');
+
+insert into MOB_PRODUCT values(5,'MacBook Air','Apple',110000,25,'10-AUG-23');
+
+insert into MOB_PRODUCT values(6,'Redmi Note','Xiaomi',18000,100,'05-JUN-23');
+
+insert into MOB_PRODUCT values(7,'Pixel 8','Google',70000,30,'12-OCT-23');
+
+insert into MOB_PRODUCT values(8,'OnePlus 11','OnePlus',60000,45,'25-AUG-23');
+
+insert into MOB_PRODUCT values(9,'LG OLED TV','LG',140000,15,'18-APR-23');
+
+insert into MOB_PRODUCT values(10,'HP Pavilion','HP',72000,28,'02-JUL-23');
+
+--
+--1.	Display all records from the product table.
+
+select * from MOB_PRODUCT;
+
+--2.	Display product_name and price only.
+
+select PRODUCT_NAME from MOB_PRODUCT;
+
+--3.	Display unique brands from the product table
+
+select DISTINCT BRAND from MOB_PRODUCT; 
+
+--4.	Display the product list by price from highest to lowest.
+
+select BRAND, PRICE from MOB_PRODUCT ORDER BY price ;
+
+--5.	Display only ‘Apple’ products.
+
+select * from MOB_PRODUCT where BRAND = 'Apple';
+
+--6.	Display products with price higher than 70000.
+
+select * from MOB_PRODUCT where price > 70000;
+
+--7.	Display products which is less than 30 quantity.
+
+select * from MOB_PRODUCT where QUANTITY < 30;
+
+--8.	Display products which is launched after ’01-jul-2023.’
+
+select * from MOB_PRODUCT where LAUNCH_DATE > '01-jul-2023';
+
+--9.	Display products where product price ranges from 50000 to 100000.
+
+select * from MOB_PRODUCT where price between 50000 and 100000;
+
+--10.	Display products doesn’t start with letter ‘B’.
+
+select * from MOB_PRODUCT where PRODUCT_NAME not like 'B%';
+
+--11.	Display the products of brand ‘Apple’,’Dell’.
+
+select * from MOB_PRODUCT where BRAND in ('Apple', 'Dell');
+
+--12.	Display the brand names into upper case.
+
+select brand, upper(brand) as upper_case from MOB_PRODUCT;
+
+--13.	Display exactly 4 character brand names.
+
+select brand from MOB_PRODUCT where BRAND like '____';
+
+--14.	Display the last 4 characters from product name.
+
+select PRODUCT_NAME from MOB_PRODUCT where BRAND like '____';
+
+--15.	Find out the position of letter ‘e’ in product name.
+
+select * from MOB_PRODUCT;
+
+select PRODUCT_NAME, INSTR(PRODUCT_NAME,'e') from MOB_PRODUCT;
+
+--16.	Display the products launched in the year 2023.
+
+select * from MOB_PRODUCT;
+
+select PRODUCT_NAME, LAUNCH_DATE from MOB_PRODUCT where to_char(launch_date,'yyyy')=2023;
+
+--17.	Show ‘Available, if quantity exists or otherwise show it as ‘Not Available’.
+
+select NVL2(quantity,'Available', 'NotAvailable') as availablity from MOB_PRODUCT;
+
+--18.	Find the new launch date if it is postponed by 3 months.
+
+
+--19.	Display products launched in the month of ‘July’.
+
+select PRODUCT_NAME, LAUNCH_DATE from MOB_PRODUCT where to_char(launch_date,'mm')='07';
+
+--20.	Convert ’15-08-2026’ to prsoper date format.
+
+select to_date('15-08-2026','DD-MM-YYYY') from dual;
+
+--21.	Display launch date with day name.
+
+select launch_date, to_char(launch_date,'DD-MM-YYYY day') from MOB_PRODUCT;
+
+select * from MOB_PRODUCT;
+--22.	Save the values in product table.
+
+commit;
+
+--23.	Increase the price of ‘Apple’ product by 10%.
+
+update MOB_PRODUCT set price = price * 1.10 where brand = 'Apple';
+
+--24.	Create  a savepoint 
+
+SAVEPOINT mob_prod_sp1;
+
+--25.	Add the column warranty_period in product table.
+
+ALTER TABLE MOB_PRODUCT ADD WARRANTY_PERIOD DATE;
+
+--26.	Insert values to the column warranty period.
+
+select * from MOB_PRODUCT;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('01-10-2025')
+WHERE PRODUCT_ID = 1;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('01-05-2024')
+WHERE PRODUCT_ID = 2;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('01-05-2024')
+WHERE PRODUCT_ID = 3;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('20-07-2024')
+WHERE PRODUCT_ID = 4;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('10-08-2025')
+WHERE PRODUCT_ID = 5;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('05-06-2025')
+WHERE PRODUCT_ID = 6;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('12-10-2025')
+WHERE PRODUCT_ID = 7;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('25-08-2025')
+WHERE PRODUCT_ID = 8;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('18-04-2025')
+WHERE PRODUCT_ID = 9;
+
+UPDATE MOB_PRODUCT
+SET WARRANTY_PERIOD = ('02-07-2025')
+WHERE PRODUCT_ID = 10;
+
+--27.	Rename the old table name product to new name called ‘Product_details’.
+
+alter table mob_product RENAME to mob_product_details;
+
+select * from MOB_PRODUCT_DETAILS;
+
+--28.	Modify the column name product_id datasize to (increase 5 numbers from what you have given).
+
+ALTER TABLE MOB_PRODUCT_DETAILS
+MODIFY (PRODUCT_name VARCHAR2(20));
+
+desc MOB_PRODUCT_DETAILS;
+
+--29.	Give only select and insert permission to a particular user on product table.
+
+
+--30.	Revoke only insert permission from the table.
+--
