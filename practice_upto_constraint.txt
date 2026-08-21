@@ -1,0 +1,274 @@
+select * from drinks;
+
+--order by
+
+--order by class which is used to arrange the datas in specific order 
+--it is followed by asc, desc, nulls first and nulls last
+
+select * from drinks ORDER BY DRINK_PRICE;
+
+select * from drinks order by DRINK_PRICE nulls last;
+
+--alias
+
+--Alias are used to teamporary name given from the table and column
+--it will not affected in actual values
+--which is used for query faster and avoid confusions
+
+select d.DRINK_ID, d.BRAND_NAME, d.DRINK_PRICE from DRINKS d; 
+
+select c.CUSTOMER_ID, c.CUSTOMER_name, c.CITY, a.ACCOUNT_TYPE  from SBI_CUSTOMER c, SBI_ACCOUNT a WHERE c.CUSTOMER_ID = a.CUSTOMER_ID;
+
+select * from EMPLOYEES;
+
+--Arithmetic operators
+
+--The arithmetic functions are used to basic mathemetic functions(+,-,*,/) are the arithmetic operators
+
+select DRINK_PRICE * 10 as multiple, DRINK_PRICE - 10 subtract, DRINK_PRICE / 2 division, DRINK_PRICE + 10 addition from drinks ORDER BY multiple nulls first;
+
+
+--Distinct
+
+--The distinct clause which is used to shows only the unique values
+
+select DISTINCT DRINK_VARIETY, DRINK_PRICE from drinks;
+
+--Conctination
+
+--The operator which is used to join a two or more string in a single string.
+--Using Double pipe line symbol
+
+select * from drinks;
+
+select BRAND_NAME||' '||DRINK_VARIETY||'is a ' || MFG_STATE ||' Saraku' from drinks;
+
+--Relational operators
+
+--The operators are used to compare the values. Used only the where clause. The rows are returned if the values are true.
+-->,<,!=,=,>=,<= these are relational operator
+
+
+select * from drinks where DRINK_VARIETY = 'rum';
+
+select * from drinks where DRINK_PRICE > 140;
+
+select * from drinks where DRINK_PRICE < 500;
+
+select * from drinks where BRAND_NAME != 'Diamond';
+
+select * from drinks where DRINK_PRICE >= 140;
+
+select * from drinks where DRINK_PRICE <= 500;
+
+--Logical operators
+
+--The logical operators are used to combine two or more conditions in sql.
+
+--Three logical operators are here (AND, OR, NOT)
+
+--AND - All the conditions must be true it will execute.
+--OR - if ant one conditions true it will be execute.
+--NOT - Its a reverse condition.
+
+select * from drinks where DRINK_VARIETY = 'rum' and DRINK_PRICE = 140;
+
+select * from drinks where DRINK_VARIETY = 'rum' or DRINK_PRICE = 180;
+
+select *from drinks where DRINK_VARIETY = 'rum' and (brand_name = 'Diamond' or DRINK_PRICE = 140);
+
+select * from drinks where  not DRINK_PRICE = 140;
+
+--special operators
+
+--which is used to filter the data
+
+--The special operators are fo;;owed by 
+--in, between, is null, is notnull, like
+
+--IN - Which is used to matched values given in the list.
+--replace multiple or conditions
+--makes query faster
+
+select * from drinks;
+
+select * from drinks where DRINK_ID in (101, 105, 110);
+
+select * from drinks where DRINK_VARIETY = 'rum' or DRINK_ID in (101, 105, 110);
+
+--Between - Between operator which is used to match the values in between range
+
+select * from drinks where DRINK_PRICE BETWEEN 100 and 200;
+
+select * from drinks where BRAND_NAME = 'Diamond' and DRINK_PRICE between 100 and 200 and DRINK_ID in (101, 105, 110);
+
+--like - Like operator also used to match the pattern.
+--like operator followed by with in quotes
+
+select * from drinks where BRAND_NAME like 'D%'; --Start with D
+
+select * from drinks where BRAND_NAME like '%o'; -- Ends with o
+
+select * from drinks where BRAND_NAME like '_i%'; -- The second letter must be i.
+
+select * from drinks where BRAND_NAME like '%i%'; -- I contains in given list.
+
+select * from drinks where DRINK_VARIETY like '%03%';
+
+select * from drinks where DRINK_VARIETY like '%___%';
+
+--is Null and not null
+
+--Check weather column contains null value
+
+select * from drinks where DRINK_PRICE is not null;
+
+--inbluid functions -- Single row and multirow functions
+
+--Single row - Numeric and String functions
+
+--Numeric - Round, trunc, mod
+
+--Round - round the numbers to a specified decimal values
+
+select round(123.789,2) from dual;
+
+select round(123.789) from dual;
+
+--Trunc - which is used to remove the decimal places.
+
+select trunc(123.789) from dual;
+
+--mod - which is used to returns a reminder value.
+
+select DRINK_VARIETY, mod(DRINK_PRICE,3) from drinks;
+
+select DRINK_VARIETY, DRINK_PRICE from drinks where mod(DRINK_PRICE,3)=0;
+
+--String functions
+
+--Upper - which is used to convert all the char into upper case
+
+select upper(BRAND_NAME) from drinks;
+
+--Lower - which is used to convert all the char into lower case
+
+select lower(BRAND_NAME) from drinks;
+
+--length - which is used to find the string size and returns no of char in string.
+
+select BRAND_NAME, length(BRAND_NAME) as total_length from drinks;
+
+--substr- Substr is used to find the extract the position of string.
+
+select SUBSTR(BRAND_NAME,3,4) from drinks;
+
+--instr - which is used to find the position of string.
+
+select INSTR('chennai','n', 2) from dual;
+
+--trim - which is used to clear the extra spaces
+
+select trim('   Salem    '), ltrim('    salem'),rtrim('salem    ') from dual;
+
+--tochar - its used to convert a value in one data type to another data type.
+
+select TO_CHAR(12345,'99,999') from dual;
+
+select TO_CHAR(sysdate,'DD-MM-YYYY HH:MI:SS') from dual;
+
+select TO_CHAR(sysdate,'DD-MM-YYYY HH:MI:SS') from dual;
+
+select * from employees where TO_CHAR(HIRE_DATE,'yy')=03;
+
+--Null handling functions
+
+--nvl, nvl2, nullif, coalase
+
+--NVL - it is used to replace a null value with a specified value.
+
+select nvl(DRINK_PRICE,0) from drinks;
+
+select nvl(to_char(DRINK_PRICE),'free') from drinks;
+
+--nvl2 - return one value if it is null return another value if it is not null.
+
+select nvl2(DRINK_PRICE,1,0) from drinks;
+
+select nvl2(to_char(DRINK_PRICE),'Yes','No') from drinks;
+
+--nullif - The two values are same returns zero otherwise returns first value.
+
+select NULLIF(10,10) from dual;
+
+--coalesce - returns first not null value from the list of expressions.
+
+select coalesce(null,20,30) from dual;
+
+--Catagories of sql
+
+--ddl, dml, tcl,dql, dcl
+
+--DDL- create, alter, truncate, drop
+
+--drop - Remove whole date and table structure
+
+drop table mobile;
+
+--create- which is used to create a table.
+
+create table mobile(mob_id varchar2(10) constraint mob_id_nn not null, brand number(10) constraint bran_nn not null);
+
+select * from MOBILE;
+
+desc mobile;
+
+--Alter - Which is used to alter tha existing table.
+
+--add|drop|modify|rename
+
+--add - Which is used to add columns. 
+
+alter table mobile add(price number(10) constraint mob_pri_ck check(price > 1000), mob_number number(10) constraint mob_num_uq unique);
+
+--modify
+
+alter table mobile modify(mob_id number(5), brand varchar2(10));
+
+alter table mobile add( company varchar2(10), constraint cmp_pk primary key(company));
+
+alter table mobile add( pincode number(10), area varchar(10), constraint cmp_ck check(pincode > 100000),constraint area_ck check(area > 10000));
+
+--Drop
+
+alter table mobile drop column company;
+
+alter table mobile drop(pincode, area);
+
+--Rename
+
+alter table mobile rename column mob_id to mobile_id;
+
+desc cell_phone;
+
+alter table mobile rename to cell_phone;
+
+alter table cell_phone rename to mobile;
+
+--Truncate - Which is used to delete all the records from the table. it will not affected in the table structure.
+
+truncate table mobile;
+
+select * from mobile;
+
+select SUBSTR('ABCDEFG',3,4) from dual;
+
+select instr('ABCDBEFGB','B',2,2) from dual;
+
+
+
+
+
+
+
+
