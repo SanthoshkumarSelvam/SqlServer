@@ -1,0 +1,515 @@
+Simple_level_questions - Stephen
+
+--Oracle SQL Practice Questions
+--Easy – 30 Questions    |    Medium – 20 Questions
+--Database & SQL
+
+
+--1. What is a database? What is SQL?
+--2. What are the different categories of SQL? Give examples of each.
+--SELECT, ORDER BY, Alias
+--3. Display all records from the EMPLOYEE table.
+
+select * from EMPLOYEES;
+
+--4. Display only EMP_NAME and SALARY from the EMPLOYEE table.
+
+select FIRST_NAME, SALARY from EMPLOYEES;
+
+--5. Display employees in ascending order of salary.
+
+select FIRST_NAME from EMPLOYEES ORDER BY SALARY;
+
+--6. Display employees in descending order of salary.
+
+select FIRST_NAME from EMPLOYEES ORDER BY SALARY desc;
+
+--7. Display employee name with the alias NAME.
+
+select FIRST_NAME as emp_name, SALARY as package from EMPLOYEES;
+
+--8. Display the EMPLOYEE table using a table alias E.
+
+select e.FIRST_NAME as emp_name, e.SALARY as package from EMPLOYEES e;
+
+--Arithmetic Operators
+
+--9. Display employee name and salary after adding 1000 to salary.
+
+select FIRST_NAME, SALARY, SALARY+1000 as incremental_salary from EMPLOYEES;
+
+--10. Display employee name and annual salary (salary * 12).
+
+select FIRST_NAME, SALARY, salary*12 as annual_salary from EMPLOYEES;
+
+select * from employees;
+
+--11. Display employee name and salary after deducting 500.
+
+select FIRST_NAME, SALARY, salary-500 as deducting_salary from EMPLOYEES;
+
+--DISTINCT & Concatenation
+
+--12. Display all unique department IDs from EMPLOYEE.
+
+select DISTINCT department_id from EMPLOYEES;
+
+--13. Display employee name and department together using concatenation.
+
+select e.first_name||'-'||d.department_name from EMPLOYEES e, DEPARTMENTS d;
+
+select * from DEPARTMENTS;
+
+--14. Display output like: Santhosh works in IT.
+
+select e.first_name||' works in '||d.department_name from EMPLOYEES e, DEPARTMENTS d;
+
+--Relational Operators & WHERE
+
+--15. Display employees whose salary is greater than 30000.
+
+select * from EMPLOYEES where SALARY > 20000;
+
+--16. Display employees whose salary is less than 50000.
+
+select * from EMPLOYEES where SALARY < 20000;
+
+--17. Display employees whose salary is equal to 40000.
+
+select * from EMPLOYEES where SALARY = 10000;
+
+--18. Display employees whose salary is not equal to 40000.
+
+select * from EMPLOYEES where SALARY != 10000;
+
+--19. Display employees whose department ID is 10.
+
+select * from EMPLOYEES where DEPARTMENT_ID = 10;
+
+--Logical Operators
+--
+--20. Display employees whose salary is greater than 30000 AND department ID is 10.
+
+select * from EMPLOYEES where SALARY > 10000 and DEPARTMENT_ID = 10;
+
+--21. Display employees whose salary is greater than 50000 OR department ID is 20.
+
+select * from EMPLOYEES where SALARY > 20000 or DEPARTMENT_ID = 20;
+
+--22. Display employees who are NOT working in department 10.
+
+select * from EMPLOYEES where DEPARTMENT_ID !=10;
+
+--Special Operators
+--
+--23. Display employees whose department ID is 10, 20, or 30 using IN.
+
+select * from EMPLOYEES where DEPARTMENT_ID in (10,20,30);
+
+--24. Display employees whose salary is between 30000 and 50000.
+
+select * from EMPLOYEES where salary BETWEEN 10000 and 20000;
+
+--25. Display employees whose name starts with 'A' using LIKE.
+
+select * from EMPLOYEES where FIRST_NAME like 'A%';
+
+--26. Display employees whose name ends with 'N'.
+
+select * from EMPLOYEES where FIRST_NAME like '%b';
+
+--27. Display employees whose name contains 'AR'.
+
+select * from EMPLOYEES where FIRST_NAME like '%Ar%';
+
+--NULL
+--
+--28. Display employees whose commission is NULL.
+
+select FIRST_NAME, COMMISSION_PCT from EMPLOYEES where COMMISSION_PCT is null;
+
+--29. Display employees whose commission is NOT NULL.
+
+select FIRST_NAME, COMMISSION_PCT from EMPLOYEES where COMMISSION_PCT is not null;
+
+--Single Row Functions
+--
+--30. Find the ROUND, TRUNC, and MOD results for salary value 45678.75.
+
+select trunc(45678.75), round(45678.75), mod(45678.75,2) from EMPLOYEES;
+
+--MEDIUM – 20 Questions
+--
+--String Functions
+--
+--31. Display employee names in uppercase.
+
+select FIRST_NAME, upper(first_name) as Upper from employees;
+
+--32. Display employee names in lowercase.
+
+select FIRST_NAME, lower(first_name) as Upper from employees;
+
+--33. Display employee names and their name length.
+
+select FIRST_NAME, length(first_name) as Upper from employees;
+
+--34. Display the first 3 characters of every employee name using SUBSTR.
+
+select FIRST_NAME, substr(first_name,1,3) as Upper from employees;
+
+--35. Display the last 2 characters of every employee name.
+
+select FIRST_NAME, substr(first_name, -2) as Upper from employees;
+
+--36. Find the position of letter 'A' in each employee name using INSTR.
+
+select FIRST_NAME, instr(first_name,'a',1,1) as Upper from employees;
+
+--37. Remove leading and trailing spaces from employee names using TRIM.
+
+select trim('   Salem   ') from dual;
+--
+--TO_CHAR & Date/Number Formatting
+--
+--38. Display employee salary using TO_CHAR with comma formatting.
+
+select FIRST_NAME, to_char(salary,'99,999')from employees;
+
+--39. Display employee joining date in the format DD-MM-YYYY.
+
+select FIRST_NAME, to_char(hire_date,'DD-MM-YYYY')from employees;
+
+--NULL Handling
+--
+--40. Display employee name and replace NULL commission with 0 using NVL.
+
+select FIRST_NAME, nvl(COMMISSION_PCT,0)from employees;
+
+--41. Display employee name and show 'Eligible' if commission is present and 'Not Eligible' if commission is
+--NULL, using NVL2.
+
+select FIRST_NAME, nvl2(COMMISSION_PCT,'Eligible','Not_Eligible')from employees;
+
+--Constraints
+--
+--42. Create a MOBILE table with MOBILE_ID as Primary Key, COMPANY as NOT NULL, and PRICE as UNIQUE.
+
+--43. Create a CUSTOMER table with CUSTOMER_ID as Primary Key, EMAIL as UNIQUE, and AGE with a CHECK constraint that age must be greater than 18.
+
+--44. Create a table with a composite primary key using two columns.
+--
+--DDL / DML / TCL
+--
+--45. Add a new column WARRANTY_PERIOD to the MOBILE table.
+
+
+--46. Modify the size of the COMPANY column from VARCHAR2(10) to VARCHAR2(20).
+--47. Rename the column COMPANY to COMPANY_NAME.
+--48. Insert 3 records into the MOBILE table.
+--49. Update the price of a particular mobile company.
+--50. Delete a mobile record and then ROLLBACK the transaction. Explain what happens.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Medium Questions - Santhosh
+
+--SQL Practice Questions
+--
+--50 Questions — 20 Easy + 30 Medium
+--
+--Topics: Database, SQL, DDL, DML, DCL, TCL, ORDER BY, NULL, aliases, operators, DISTINCT, concatenation, WHERE, logical/special operators, NULL handling, single-row functions and constraints.
+--
+--Section A — Easy Questions
+--
+--1.	What is a database?
+--2.	What is SQL?
+--3.	What is the full form of SQL?
+--4.	What is DDL? Name any two DDL commands.
+--5.	What is DML? Name any two DML commands.
+--6.	What is the purpose of ORDER BY?
+--7.	What is NULL in SQL?
+--8.	What is a column alias? Give an example.
+--9.	What is a table alias? Give an example.
+--10.	Name four arithmetic operators used in SQL.
+--11.	What does DISTINCT do?
+--12.	What is concatenation in SQL?
+--13.	What is the purpose of WHERE?
+--14.	Name the three basic logical operators.
+--15.	What is the use of IN?
+--16.	What is the use of BETWEEN?
+--17.	What is the use of LIKE?
+--18.	What is the difference between IS NULL and IS NOT NULL?
+--19.	What does UPPER() do?
+--20.	What does LENGTH() return?
+-- 
+--Section B — Medium Questions
+--
+--Assume an Oracle-style EMPLOYEES table with columns such as employee_id, employee_name, salary, department_id, manager_id, email, city and hire_date.
+--
+--1.	Write a query to display all columns from employees.
+
+select * from employees;
+
+--2.	Write a query to display employee_name and salary from employees.
+
+select FIRST_NAME, SALARY from employees;
+
+--3.	Write a query to display employees in ascending order of salary.
+
+select FIRST_NAME, SALARY from employees order by SALARY;
+
+--4.	Write a query to display employees in descending order of salary.
+
+select FIRST_NAME, SALARY from employees order by SALARY desc;
+
+--5.	Write a query using aliases Name and Monthly_Salary for employee_name and salary.
+
+select FIRST_NAME name, SALARY monthly_salary from employees e;
+
+--6.	Write a query to display unique department_id values.
+
+select DISTINCT DEPARTMENT_ID from employees;
+
+--7.	Write a query to display employee_name and salary + 1000 as Revised_Salary.
+
+select FIRST_NAME, SALARY+1000 as revised_salary from employees;
+
+--8.	Write a query to display employee_name and salary * 12 as Annual_Salary.
+
+select FIRST_NAME, SALARY *12 annual_salary from employees;
+
+--9.	Write a query to display employees where department_id = 10.
+
+select DEPARTMENT_ID, FIRST_NAME, SALARY from employees where DEPARTMENT_ID = 10;
+
+--10.	Write a query to display employees whose salary is greater than 30000.
+
+select FIRST_NAME, SALARY from employees where SALARY > 10000;
+
+--11.	Write a query to display employees whose salary is between 20000 and 50000.
+
+select FIRST_NAME, SALARY from employees WHERE SALARY BETWEEN 10000 and 20000;
+
+--12.	Write a query using IN for department_id values 10, 20, and 30.
+
+select DEPARTMENT_ID, FIRST_NAME, SALARY from employees where DEPARTMENT_ID in (10,20,30);
+
+--13.	Write a query to display names starting with 'A'.
+
+select FIRST_NAME, SALARY from employees where FIRST_NAME like 'A%';
+
+--14.	Write a query to display names ending with 'n'.
+
+select FIRST_NAME, SALARY from employees where FIRST_NAME like '%n';
+
+--15.	Write a query to display names containing 'an'.
+
+select FIRST_NAME, SALARY from employees where FIRST_NAME like '%an%';
+
+--16.	Write a query to display employees whose manager_id is NULL.
+
+select FIRST_NAME, SALARY from employees where MANAGER_ID is null;
+
+--17.	Write a query to display employees whose email is NOT NULL.
+
+select FIRST_NAME, SALARY, EMAIL from employees where EMAIL is not null;
+
+--18.	Write a query using ROUND() to round salary to the nearest thousand.
+
+select SALARY, ROUND(SALARY) as rounded_salary from EMPLOYEES;
+
+select SALARY, ROUND(SALARY, -3) rounded_salary from EMPLOYEES;
+
+--19.	Write a query using MOD() to find the remainder of salary divided by 1000.
+
+select FIRST_NAME, SALARY, mod(SALARY,1000) reminder_salary from EMPLOYEES;
+
+--20.	Write a query using TRUNC() to remove decimal places from salary.
+
+select SALARY, trunc(SALARY) from EMPLOYEES;
+
+--21.	Write a query to display employee names in UPPER and LOWER case.
+
+select FIRST_NAME, upper(FIRST_NAME) as Upper_case, lower(FIRST_NAME) as Lower_case  from EMPLOYEES;
+
+--22.	Write a query to display the LENGTH of each employee_name.
+
+select FIRST_NAME, SALARY, LENGTH(FIRST_NAME) as total_length from EMPLOYEES;
+
+--23.	Write a query using SUBSTR() to display the first three characters of employee_name.
+
+select FIRST_NAME, SUBSTR(FIRST_NAME,1,3) as first_three from EMPLOYEES;
+
+--24.	Write a query using INSTR() to find the position of 'a' in employee_name.
+
+select FIRST_NAME, INSTR(FIRST_NAME,'a', 1, 1) from EMPLOYEES;
+
+--25.	Write a query using TRIM() to remove leading/trailing spaces from city.
+
+SELECT * FROM LOCATIONS;
+
+SELECT trim(CITY) FROM LOCATIONS;
+
+--26.	Write a query to concatenate employee_name and department_id.
+
+SELECT FIRST_NAME||' Department id is '||DEPARTMENT_ID FROM EMPLOYEES;
+
+--27.	Write a query sorted by department_id and then salary descending.
+
+SELECT DEPARTMENT_ID, SALARY FROM EMPLOYEES ORDER BY salary desc;
+
+--28.	Write a query using WHERE, AND to find salary > 30000 and department_id = 20.
+
+SELECT DEPARTMENT_ID, FIRST_NAME, SALARY FROM EMPLOYEES WHERE salary > 1000 and DEPARTMENT_ID = 20;
+
+--29.	Write a query using OR to find department_id = 10 or salary > 50000.
+
+SELECT DEPARTMENT_ID, FIRST_NAME, SALARY FROM EMPLOYEES WHERE salary > 15000 or DEPARTMENT_ID = 10;
+
+--30.	Write a query using TO_CHAR() to format hire_date.
+
+select FIRST_NAME, hire_date, TO_CHAR(HIRE_DATE, 'DD-MM-YYYY HH:MI:SS') from employees;
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Hard_level - Santhosh
+
+--1. Display employees whose salary is not between 30,000 and 60,000 and whose department is either 10 or 20.
+
+select * from employees where SALARY not BETWEEN 30000 and 60000 and DEPARTMENT_ID in(10,20);
+
+--2. Display employees whose name starts with A, contains R, and has exactly 5 characters.
+
+select EMPLOYEE_ID, first_name from employees where FIRST_NAME like 'A%' and first_name like '%r' and first_name like '%05%';
+
+--3. Display employees whose salary is greater than 40,000, commission is not NULL, and department is not 30.
+
+select * from employees where salary > 10000 and COMMISSION_PCT is not null and DEPARTMENT_ID not in(30);
+
+--4. Display employees whose department is 10, 20, or 30, salary is between 25,000 and 75,000, and name does not start with S.
+
+select * from employees where DEPARTMENT_ID in (10,20,30) and SALARY BETWEEN 10000 and 20000 and FIRST_NAME not like 'S%';
+
+--5. Display unique department IDs and arrange them in descending order.
+
+select DISTINCT department_id from employees order by DEPARTMENT_ID desc;
+
+--6. Display employees ordered by department ascending, salary descending, and employee name ascending.
+
+select DEPARTMENT_ID, first_name, SALARY from employees ORDER BY DEPARTMENT_ID asc, SALARY desc, first_name asc;
+
+--7. Display employees ordered by commission with NULL values first.
+
+select * from EMPLOYEES order by COMMISSION_PCT nulls FIRST;
+
+--8. Display employee name, monthly salary, annual salary, and annual salary after a 10% increment.
+
+select FIRST_NAME, SALARY + 1.10 as incremented_salary from EMPLOYEES;
+
+--9. Display employee name, salary, salary + 5000, salary - 2000, salary × 12, and salary ÷ 12.
+
+select FIRST_NAME, SALARY + 5000 as ADDED_salary, salary - 2000 Subtract_salary, 
+salary * 12 as multiple_salary, salary / 12 divided_salary from EMPLOYEES;
+
+--10. Display employee name and total compensation (salary + commission). If commission is NULL, consider it as 0.
+
+select FIRST_NAME, nvl(salary + COMMISSION_PCT, 0) total_compensation from employees;
+
+--11. Display employee name along with the first 2 characters, last 3 characters, name length, and position of A.
+
+select SUBSTR(FIRST_NAME,1,2), SUBSTR(FIRST_NAME, -3), length(FIRST_NAME), instr(FIRST_NAME,'a',1,2)  from employees ;
+
+--12. Display employee names after removing leading/trailing spaces and converting them to uppercase.
+
+select upper(trim('   Salem   ')) from EMPLOYEES;
+
+--13. Display employees whose second character is A.
+
+select FIRST_NAME from employees where FIRST_NAME like '_a%';
+
+--14. Display employees whose second-last character is E.
+
+SELECT * FROM employees WHERE FIRST_NAME LIKE '%e_';
+
+--15. Display employee names in this format using concatenation and string functions: Employee: SAN, Length: 3
+
+select 'Employee: ' || SUBSTR(FIRST_NAME,1,3)||', Length: '||length(SUBSTR(FIRST_NAME,1,3)) as length from EMPLOYEES;
+
+--16. Display salary rounded to the nearest integer, 2 decimal places, and nearest hundred.
+
+select salary, round(123.789,0) near_int, round(123.789, 2) two_decimal, round(1234.789, -2) as near_hundred from employees;
+
+--17. Display salary truncated to the integer, 2 decimal places, and nearest hundred.
+
+select salary, trunc(123.789,0) near_int, trunc(123.789, 2) two_decimal, trunc(1234.789, -2) as near_hundred from employees;
+
+--18. Display the remainder of salary divided by 1000 using MOD().
+
+select salary, mod(salary,100), mod(1234,100) from employees;
+
+--19. Display employees whose salary is exactly divisible by 1000.
+
+select EMPLOYEE_ID, FIRST_NAME, SALARY from employees where mod(SALARY,1000)=0;
+
+--20. Display employee name and commission using NVL(). If commission is NULL, display 0.
+
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, NVL(commission_pct, 0) commision FROM EMPLOYEES;
+
+--21. Using NVL2(), display "Commission Available" when commission exists and "No Commission" when commission is NULL.
+
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, NVL2(commission_pct, 'NO_Commision', 'Commision_available') commision FROM EMPLOYEES;
+
+--22. Display employee name and total salary where commission exists; otherwise display only the salary.
+
+select FIRST_NAME, SALARY + COMMISSION_PCT as total_salary, COMMISSION_PCT from EMPLOYEES where COMMISSION_PCT is not null;
+
+--23. Create a PRODUCT table with PRODUCT_ID as Primary Key, PRODUCT_NAME as NOT NULL, PRICE greater than 0, PRODUCT_CODE as UNIQUE, and CATEGORY with default value 'MOBILE'.
+
+create table mobile(mobile_id number(10), mobile_name varchar2(15) constraint mob_name_nn not null, 
+mobile_code NUMBER(10), category varchar2(15) DEFAULT 'MOBILE',
+constraint mob_id_pk primary key(mobile_id), constraint mob_code_uni unique(mobile_code));
+
+select * from mobile;
+
+insert into mobile (mobile_id, mobile_name, mobile_code, category)
+values(1, 'Apple',101, 'Phone');
+
+insert into mobile values(2, 'oneplus', 102, 'Mobile');
+
+--24. Perform the following ALTER TABLE operations on the PRODUCT table: add WARRANTY_PERIOD, increase PRODUCT_NAME size, rename PRODUCT_CODE to CODE, modify PRICE, and drop WARRANTY_PERIOD.
+
+alter table mobile add Warranty_period date constraint wp_ck check(warranty_period is not null);
+
+alter table mobile modify (mobile_name varchar2(20));
+
+alter table mobile rename column mobile_code to code;
+
+alter table mobile drop column warranty_period;
+
+desc mobile;
+
+--25. Perform these operations using DML and TCL: insert 3 products, update one price, delete one product, create a SAVEPOINT, update another product, ROLLBACK TO SAVEPOINT, and finally COMMIT.
+
+commit;
+
+insert into mobile values(3, 'samsung', 103, 'telephone');
+insert into mobile values(4, 'nokia', 104, 'Mobile_phone');
+insert into mobile values(5, 'vivo', 105, 'smartphone');
+insert into mobile values(6, 'oppo', 106, 'smartmob');
+
+select * from mobile;
+
+update mobile set MOBILE_ID = 6 where MOBILE_ID = 3;
+
+update mobile set CATEGORY = 'mobile';
+
+update mobile set CATEGORY = 'smart_phone' where MOBILE_ID in(2,6);
+
+DELETE from mobile where MOBILE_ID in(3,4,5);
+
+SAVEPOINT mob_save;
+
+rollback;
+
+rollback to mob_save;
