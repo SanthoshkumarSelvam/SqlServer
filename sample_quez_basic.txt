@@ -516,3 +516,5 @@ rollback to mob_save;
 
 
 Thank you for update.
+
+good bye.
