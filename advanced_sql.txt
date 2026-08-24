@@ -1,0 +1,132 @@
+--01. Find employees who earn more than 50,000 and have a salary value.
+
+select * from EMPLOYEES where SALARY > 20000;
+
+--02. Show employee names in A–Z order. If two names are the same, show the higher salary first.
+
+select FIRST_NAME, salary from EMPLOYEES ORDER BY FIRST_NAME ASC , SALARY desc;
+
+--03. Show only different department numbers and ignore NULL values.
+
+select DISTINCT DEPARTMENT_ID from EMPLOYEES where DEPARTMENT_ID is not null; 
+
+--04. Find employees whose salary is below 25,000 or above 75,000, but ignore NULL salaries.
+
+select * from EMPLOYEES WHERE SALARY < 10000 or SALARY > 15000 and DEPARTMENT_ID is not null;
+
+--05. Find employees from departments 10, 20, or 30 whose salary is between 30,000 and 60,000.
+
+SELECT * FROM EMPLOYEES where DEPARTMENT_ID in (10,20,30) and SALARY BETWEEN 10000 and 20000;
+
+--06. Find employees whose name starts with S and has A somewhere after the first letter.
+
+select * from EMPLOYEES where FIRST_NAME like 'Sa%';
+
+--07. Find employees whose name has exactly 6 characters and whose third character is A.
+
+select * from EMPLOYEES where length(FIRST_NAME)=6 and FIRST_NAME like '__a%';
+
+--08. Show the first 3 and last 3 characters of each employee's name.
+
+select SUBSTR(FIRST_NAME,1,3)|| '-'|| SUBSTR(FIRST_NAME,-3) from employees;
+
+--09. Find the position of the second A in each employee's name.
+
+select FIRST_NAME, INSTR(FIRST_NAME,'a', 1, 2) from EMPLOYEES;
+
+--10. Remove spaces from employee names and display them in uppercase.
+
+SELECT upper(TRIM(FIRST_NAME)) FROM EMPLOYEES;
+
+--11. Show first name and last name as one name, with first name in uppercase and last name in lowercase.
+
+select upper(FIRST_NAME)||'-'||lower(LAST_NAME) from EMPLOYEES;
+
+--12. Show salary rounded to 2 decimal places and also show the remainder after dividing salary by 1000.
+
+select SALARY, ROUND(SALARY,2) from EMPLOYEES WHERE MOD(SALARY,1000)=0;
+
+select SALARY, ROUND(SALARY,2),MOD(SALARY,1000) from EMPLOYEES;
+
+--13. Show salary without decimal values and without rounding.
+
+select trunc(SALARY) from employees;
+
+--14. Find employees whose salary can be divided by 1000 without a remainder.
+
+select * from EMPLOYEES where mod(SALARY,1000)=0;
+
+--15. Find employees whose salary cannot be divided by 1000 and is greater than 30,000.
+
+select * from EMPLOYEES where mod(SALARY,1000)!=0 and SALARY > 10000;
+
+--16. Show employees who have commission and add % after the commission value.
+
+select * from EMPLOYEES;
+
+select FIRST_NAME, COMMISSION_PCT||'%' as percentage from EMPLOYEES where COMMISSION_PCT is not null;
+
+--17. Show commission as No Commission when it is NULL; otherwise add % after the value.
+
+select nvl(TO_CHAR(COMMISSION_PCT)||'%','NO_Commission') from EMPLOYEES;
+
+SELECT FIRST_NAME,
+       NVL(TO_CHAR(COMMISSION_PCT) || '%', 'No Commission') AS COMMISSION
+FROM EMPLOYEES;
+
+--18. Find employees whose commission is NULL or salary is below 30,000, but don't show department 10 employees.
+
+select * from EMPLOYEES where COMMISSION_PCT is null and SALARY < 20000 and DEPARTMENT_ID not in(10);
+
+--19. Find employees whose name contains the letter A exactly two times.
+
+--20. Find employees whose name starts with A or S, has more than 4 characters, and salary is above 25,000.
+
+select * from EMPLOYEES where FIRST_NAME like 'S%' and length(FIRST_NAME)>4;
+
+--21. Show employees by department number from low to high and salary from high to low. Put NULL salaries at the end.
+
+select DEPARTMENT_ID, SALARY from EMPLOYEES ORDER BY DEPARTMENT_ID, SALARY desc nulls last;
+
+--22. Show employees by salary from high to low. Put NULL salaries at the beginning.
+
+select DEPARTMENT_ID, FIRST_NAME, SALARY from EMPLOYEES ORDER BY SALARY desc nulls first;
+
+--23. Find employees whose names have unwanted spaces at the beginning or end.
+
+select FIRST_NAME, length(FIRST_NAME) from EMPLOYEES;
+
+SELECT *
+FROM EMPLOYEES
+WHERE FIRST_NAME != TRIM(FIRST_NAME);
+
+--24. Find employees whose name, after removing spaces and converting to uppercase, starts with A.
+
+select upper(trim(FIRST_NAME)) from employees where FIRST_NAME like 'A%';
+
+--25. Show employee name, name length, position of A, and first 3 characters together.
+
+select FIRST_NAME, LENGTH(first_name) as length, instr(FIRST_NAME,'A',1,1) position ,
+SUBSTR(FIRST_NAME,1,3) portion from EMPLOYEES;
+
+--26. Display salary like 50,000.00 using TO_CHAR().
+
+select TO_CHAR(500000, '99,99,999') from EMPLOYEES;
+
+--27. Display the employee hire date like 24-AUG-2026 using TO_CHAR().
+
+select * from EMPLOYEES where HIRE_DATE = '24-AUG-2026';
+
+select FIRST_NAME from EMPLOYEES where TO_CHAR(HIRE_DATE, 'DD-MON-YYYY')='24-AUG-2026';
+
+--28. The company wants a unique employee ID, mandatory employee name, unique email, 
+--and salary greater than 0. Which constraints are needed?
+
+
+--29. An existing table needs to stop duplicate emails and negative salaries. Which constraints should be added?
+
+
+--30. An employee salary is updated, then another salary is updated, and then a record is deleted. 
+--Keep the first update but cancel the second update and deletion. Use SAVEPOINT, ROLLBACK, and COMMIT.
+
+
