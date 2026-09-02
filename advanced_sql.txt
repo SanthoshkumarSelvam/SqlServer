@@ -122,11 +122,20 @@ select FIRST_NAME from EMPLOYEES where TO_CHAR(HIRE_DATE, 'DD-MON-YYYY')='24-AUG
 --28. The company wants a unique employee ID, mandatory employee name, unique email, 
 --and salary greater than 0. Which constraints are needed?
 
+create table employee(emp_id number constraint emp_id_uq unique,
+emp_name varchar(15) constraint emp_name_nn not null,
+email varchar(15) constraint email_nn not null,
+salary number constraint sal_ck check(salary > 0);
 
 --29. An existing table needs to stop duplicate emails and negative salaries. Which constraints should be added?
 
+unique and check constraint
 
 --30. An employee salary is updated, then another salary is updated, and then a record is deleted. 
 --Keep the first update but cancel the second update and deletion. Use SAVEPOINT, ROLLBACK, and COMMIT.
 
+update employee set column salary = 25000;
 
+update employee set column salary = 25000 where emp_id = 101;
+
+delete from employee where emp_id = 101;
