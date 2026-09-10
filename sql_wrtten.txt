@@ -1,0 +1,444 @@
+--SQL FULL WRITTEN REVISION 
+
+--1. Write a query to display the employee name and salary, but show the salary with an additional ₹5,000  
+--as EXPECTED_SALARY. Do not modify the table. 
+
+select SALARY, SALARY+5000 as expected_salary from EMPLOYEES;
+
+--2. A query uses SELECT * FROM employees. Why might this be avoided in a production environment?
+
+Because star(*) retrives all the records from the table.
+
+--3. Write a query to display employees whose salary is between 30,000 and 60,000. Should you use 
+--BETWEEN or multiple conditions? Explain. 
+
+select first_name, salary from employees where salary between 10000 and 20000;
+
+--4. Write a query to display employees whose department is either 10, 20 or 30 without writing three 
+--separate OR conditions. 
+
+select * from employees where department_id in (10,20,30);
+
+--5. What is the difference between WHERE salary > 50000 and WHERE salary >= 50000? 
+
+> is used to retrive below mentioned value.
+>= is used to retrive below and mentioned value also.
+
+--6. Write a query to display employees whose names start with A and end with n. 
+
+select * from employees where FIRST_NAME like 'A%n';
+
+--7. Write a query to display employees whose names contain exactly five characters. 
+
+select * from EMPLOYEES where length(first_name)=5;
+
+--8. Write a query to display employees whose department is not 10.
+
+select * from employees where DEPARTMENT_ID !=10;
+
+--9. What is the difference between = and LIKE in SQL? 
+
+Equal is used to retrive single value.
+like = is used to patten matching.
+
+--10. Write a query to display employee names in uppercase and department names in lowercase. 
+
+select upper(first_name), lower(job_id) from employees;
+
+--11. Write a query to display employee name and job in a single column in the format: Ravi is a 
+--MANAGER. 
+
+select FIRST_NAME||' is a '||job_id from employees;
+
+--12. What happens if you use DISTINCT on two columns instead of one? 
+
+If you use DISTINCT on two columns, Oracle removes duplicate combinations of both columns.
+
+--13. Write a query to display unique combinations of department_id and job_id. 
+
+select DISTINCT FIRST_NAME, SALARY from employees;
+
+--14. Can a column alias be used in the WHERE clause? Explain with an example. 
+
+no, because where evaluated before select clause.
+
+select salary sal from EMPLOYEES where sal = 10000;
+
+--15. Can a column alias be used in the ORDER BY clause? Demonstrate. 
+
+yes we can use
+
+select FIRST_NAME as name, SALARY as sal from employees ORDER BY sal desc;
+
+--16. Write a query to display the first three characters of every employee's first name. 
+
+select FIRST_NAME, SUBSTR(first_name,1,3) from employees;
+
+--17. Write a query to find the position of the letter A in an employee's name. 
+
+select FIRST_NAME, INSTR(first_name,'a') from employees;
+
+select first_name, INSTR(upper(first_name),'A') from employees;
+
+--18. What is the difference between LENGTH() and INSTR()? 
+
+length --> is used to return no of characters present in the string.
+
+instr() --> is used to print position of the string.
+
+--19. Write a query to remove leading and trailing spaces from a customer name. 
+
+select first_name, trim(first_name) from employees;
+
+--20. Write a query to display employee names with the first letter capitalized and remaining letters in 
+--lowercase. 
+
+select initcap(LAST_NAME) from employees;
+
+--21. A customer has a NULL phone number. Write a query that displays NOT PROVIDED instead of 
+--NULL. 
+
+select FIRST_NAME, PHONE_NUMBER, nvl(PHONE_NUMBER, 'NOt_provided')from EMPLOYEES;
+
+--22. What is the difference between NVL() and NVL2()? 
+
+NVL() --> replace a null value with specified value.
+nvl2() --> replace a on value as null another value as not null.
+
+--23. What would COALESCE(phone, email, 'NO CONTACT') return if both phone and email are NULL? 
+
+if it returns first not null value.
+
+select FIRST_NAME, COALESCE(PHONE_NUMBER, EMAIL, 'No_Contact') from EMPLOYEES;
+
+--24. Explain why this condition does not correctly find NULL values: WHERE commission_pct = NULL; 
+
+null is not single value . it means unknown or missing value.
+
+--25. Write the correct query to find employees whose commission is NULL. 
+
+select * from employees where commission_pct is null;
+
+--26. What is the difference between NVL() and COALESCE()? 
+
+nvl() --> is used to replace a null value as specified value.
+coalesce --> is used to return first not null value.
+
+--27. Write a query to calculate salary + commission, treating NULL commission as zero. 
+
+select FIRST_NAME, SALARY, nvl(SALARY+commission_pct, 0) from EMPLOYEES;
+
+--28. What happens when you perform arithmetic such as salary + NULL? 
+
+select SALARY + null from EMPLOYEES;
+
+--29. Write a query to display employee names and their salary rounded to the nearest thousand. 
+
+select SALARY, ROUND(salary,-3) from employees;
+
+--30. Write a query to display salary truncated to the nearest thousand without rounding. 
+
+select SALARY, trunc(salary,-3) from employees;
+
+--31. Write a query to display employees hired during the current year. 
+
+select * from employees where EXTRACT (year from hire_date)=2006;
+
+--32. Can EXTRACT(YEAR FROM hire_date) be used in a WHERE clause? Demonstrate. 
+
+select * from employees where EXTRACT (year from hire_date)=2006;
+
+--33. Write a query to display employees hired in the last 30 days. 
+
+select FIRST_NAME, HIRE_DATE from employees where hire_date >= sysdate -30;
+
+--34. Write a query to display employees whose hire date is more than 5 years old. 
+
+--35. What is the difference between SYSDATE and SYSTIMESTAMP? 
+
+--36. Write a query to display the last day of the month in which each employee was hired. 
+
+--37. Write a query to display the date six months after each employee's hire date. 
+
+--38. What does MONTHS_BETWEEN() return? 
+
+
+--39. Write a query to find employees who have completed more than 10 years of service. 
+
+
+--40. Write a query to display only the date portion of SYSDATE, ignoring the time component. 
+
+select trunc(sysdate) from dual;
+
+--41. Write a query to find the total salary paid by the company. 
+
+select sum(SALARY) from employees;
+
+--42. Write a query to find the average salary of all employees. 
+
+select avg(SALARY) from employees;
+
+--43. Write a query to find the highest and lowest salary in each department. 
+
+select department_id, min(SALARY), max(salary) from employees group by department_id;
+
+--44. What is the difference between COUNT(*) and COUNT(commission_pct)? 
+
+count(*) --> which is used to count all the values null values also.
+count(col_name) --> Which is used to count not null values only.
+
+--45. Write a query to count employees department-wise. 
+
+select department_id, count(*) from employees group by department_id;
+
+--46. Write a query to display departments having more than 5 employees. 
+
+select department_id, count(*) from employees group by department_id having count(*)>5;
+
+--47. Why is the following query invalid? SELECT department_id, SUM(salary) FROM employees; 
+
+The query is invalid because `department_id` is a normal column and `SUM(salary)` 
+is an aggregate function. We need to use `GROUP BY department_id`.
+
+--48. Correct the query in Question 47. 
+
+select department_id, sum(salary) from employees group by department_id;
+
+--49. Can a column used in GROUP BY be omitted from the SELECT list? Explain with an example. 
+
+select COUNT(*) from EMPLOYEES GROUP BY DEPARTMENT_ID;
+
+--50. What is the difference between WHERE and HAVING? 
+
+where --> is used to filter rows.
+Having --> is used to filter groups.
+
+--51. Write a query to display departments whose average salary is greater than 50,000. 
+
+select department_id, avg(salary) from EMPLOYEES group by department_id having avg(salary) > 10000;
+
+--52. Write a query to display job-wise employee count, but only show jobs having at least 3 employees.
+
+select job_ID, COUNT(*) from employees group by job_ID having count(*)>=3;
+
+--53. A requirement says: First filter employees whose salary is greater than 40,000 and then find 
+--departments having more than 3 such employees. Write the query. 
+
+select department_id, COUNT(*) from employees where salary > 10000 group by department_id having count(*)>=3;
+
+--54. Arrange these clauses in their logical execution order: SELECT, HAVING, FROM, ORDER BY, 
+--GROUP BY, WHERE. 
+
+from , where, group by, having, select, order_by
+
+--55. Is GROUP BY used for sorting? Explain the difference between grouping and sorting. 
+
+Group by --> Is used to group the same identical values.
+Sorting --> Arrange the value in specific order ex: Order by
+
+--56. Two tables contain employee IDs from 2025 and 2026. Write a query to display employees who 
+--worked in either year, without duplicates. 
+
+select * from employees;
+union
+select * from departments;
+
+--57. What is the difference between UNION and UNION ALL? 
+
+union --> combine the result of two tables and remove the duplicates
+unionall --> combine the result of two tables and keep the duplicates
+
+--58. If the first query returns 5 rows and the second returns 7 rows, can UNION ALL return 12 rows? 
+--Explain when it would. 
+
+yes because union all keep all thhe duplicates.
+
+--59. Write a query to find customer IDs that appear in both online_customers and branch_customers. 
+
+select department_id from employees;
+union all 
+select department_id from departments;
+
+--60. Write a query to find customers who are present in online_customers but not in branch_customers.
+
+--61. What three conditions must be satisfied for two queries to use a set operator? 
+
+we can use the union set operator;
+
+--62. Which set operator would you use to find common records? 
+
+intersect
+
+--63. Which set operator would you use to find records in the first query but not in the second? 
+
+minus
+
+--64. Write an INNER JOIN to display employee name and department name. 
+
+select d.department_id, e.first_name, e.salary  from employees e join departments d
+on e.department_id = d.department_id;
+
+--65. What is the main difference between an INNER JOIN and a LEFT OUTER JOIN? 
+
+inner join --> Combine two tables and returns matched records only.
+Left join --> Combine two tables and print left side table and right side matched records only.
+
+--66. A company wants to display all departments, including departments that currently have no 
+--employees. Which join should be used? 
+
+left join 
+
+select d.department_id, e.first_name from employees e left join departments d
+on d.department_id = e.department_id;
+
+--67. Write a RIGHT JOIN to display all departments and matching employees. 
+
+select d.department_id, e.first_name from employees e right join departments d
+on d.department_id = e.department_id;
+
+--68. What happens to columns from the opposite table when there is no matching row in an OUTER 
+--JOIN? 
+
+
+--69. If Table A has 3 rows and Table B has 4 rows, how many rows can a CROSS JOIN produce? 
+
+12 rows
+
+--70. Why is a CROSS JOIN potentially dangerous in production queries? 
+
+because cross join match each and every record
+
+--71. Write a three-table join to display Customer Name, Account Number, and Transaction Amount. 
+
+select c.first_name, a.account_number, t.running_balance
+from fhb_customer c join fhb_account a
+on c.customer_id = a.customer_id
+join fhb_transaction t
+on a.account_id = t.account_id;
+
+--72. What is the difference between an ANSI JOIN and an old-style implicit join? 
+
+
+--73. An employee table contains both employee_id and manager_id. The manager is also stored in the 
+--same table. Which type of join is appropriate? 
+
+self join
+
+--74. Write a SELF JOIN query to display Employee Name and Manager Name. 
+
+select e.first_name, m.first_name from employees e join employees m
+on e.employee_id = m.manager_id;
+
+SELECT e.FIRST_NAME AS EMPLOYEE_NAME,
+       m.FIRST_NAME AS MANAGER_NAME
+FROM EMPLOYEES e
+JOIN EMPLOYEES m
+ON e.MANAGER_ID = m.EMPLOYEE_ID;
+
+--75. Write a query to display employees whose salary is greater than the average salary of all employees. 
+
+
+--76. Write a query to find employees working in departments located in Chennai using a subquery. 
+--77. What is the difference between a single-row subquery and a multi-row subquery? 
+--78. Why would IN be used instead of = with a multi-row subquery? 
+
+
+--79. Explain the difference between ANY and ALL. 
+
+--80. Write a correlated subquery to display employees whose salary is greater than the average salary of 
+--their own department. 
+
+select * from EMPLOYEES e where e.SALARY > 
+( select avg(e2.salary) from employees e2 where e.DEPARTMENT_ID = e2.DEPARTMENT_ID );
+
+--81. ROWNUM: You need the top 5 highest-paid employees. 
+
+SELECT * from (select FIRST_NAME, SALARY FROM EMPLOYEES order by SALARY desc)
+where ROWNUM <= 5;
+
+--Explain why this query may not give the expected result: SELECT * FROM employees WHERE ROWNUM <= 5 ORDER BY salary DESC;  
+
+ROWNUM is assigned before the ORDER BY
+
+--Write the correct query. 
+
+SELECT ROWNUM, salary from (select FIRST_NAME, SALARY FROM EMPLOYEES order by SALARY desc)
+where ROWNUM <= 5;
+
+--82. ROWNUM: Why does SELECT * FROM employees WHERE ROWNUM = 5  
+--fail to return the 5th row? How would you solve it? 
+
+--Using Sub_Querys
+
+select * from ( select ROWNUM as serial_num, first_name, salary from employees) where serial_num = 5;
+
+--83. Analytical Functions:  
+--Given  
+--Ravi 50000, 
+--Priya 50000,  
+--Arun 40000,  
+--Kumar 30000,  
+--what difference would you expect between ROW_NUMBER(), RANK(), and DENSE_RANK() when 
+--ordered by salary descending? 
+
+select EMPLOYEE_ID, FIRST_NAME, SALARY,
+row_number() over(order by salary desc) rn,
+rank() over(order by salary desc) rnk,
+DENSE_RANK ()over(order by salary desc) dr
+from employees;
+
+--84. LAG: Write a query using LAG() to display each employee's salary along with the previous 
+--employee's salary when employees are ordered by salary. 
+
+select * from sales;
+
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, LAG(SALARY) OVER (ORDER BY SALARY) AS 
+PREV_SALARY FROM EMPLOYEES;
+
+--85. LEAD: Write a query using LEAD() to display the next employee's salary alongside the current 
+--employee's salary. 
+
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, Lead(SALARY) OVER (ORDER BY SALARY) AS 
+lead_SALARY FROM EMPLOYEES;
+
+--86. Banking Scenario: Given CUSTOMER, ACCOUNT, and BANK_TRANSACTION, write a query to display customers who have at
+--least one account whose balance is greater than the average account balance. 
+
+select c.FIRST_NAME, a.ACCOUNT_TYPE, t.TXN_TYPE, a.available_balance
+from FHB_CUSTOMER c join fhb_account a
+on c.CUSTOMER_ID = a.customer_id
+join fhb_transaction t
+on a.ACCOUNT_ID = t.ACCOUNT_ID
+where a.available_balance > (select avg(a.available_balance) from fhb_account a);
+
+--87. Write a query to display customers who have at least one transaction, using EXISTS rather than IN.
+
+--88. View: A view is created as CREATE VIEW emp_view AS SELECT employee_id, employee_name, 
+--salary FROM employees. Does it physically store the data? If the base table changes, what happens 
+--when the view is queried? What command would remove only the view? 
+
+Which is used to store the result of select query
+
+create view emp_view as select employee_id, first_name, salary, department_id from employees;
+
+select * from emp_view;
+
+drop view emp_view;
+
+--89. Index: An employee table contains 10 million rows and a query frequently searches WHERE 
+--employee_id = 10025. Would creating an index on employee_id be useful? Why? Also write the SQL 
+--command to create the index. 
+
+select * from drinks;
+
+create index drink_ind on drinks(drink_id);
+
+select * from drinks where drink_id = 105;
+
+drop index drink_ind;
+
+--90. SQL*Loader: A CSV file contains 101,Ravi,50000; 102,Priya,60000; 103,Arun,55000. You need to 
+--load it into an Oracle table. Identify the purpose of the Data file, Control file, Log file, and Bad file, and 
+--write a basic SQL*Loader control-file structure. 
+
+SQL*Loader loads external data such as CSV,txt,dat files into Oracle tables.
